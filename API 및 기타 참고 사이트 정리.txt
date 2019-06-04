@@ -36,6 +36,9 @@ https://developers.naver.com/docs/search/movie/
 4. THE MOVIE DB
 https://www.themoviedb.org/
 
+5. KMDB
+https://www.kmdb.or.kr/info/api/apiDetail/6
+
 -------------------------------------------------------------------------------------------------------------
 
 API »ç¿ë¹ý
