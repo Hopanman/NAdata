@@ -1,4 +1,4 @@
-﻿members = ['박건우']
+﻿members = []
 
 for member in members:
     print(member)
