@@ -21,32 +21,6 @@ http://web.yonsei.ac.kr/dslab/Journal/ISR_Predicting%20Movie.pdf
 
 8. (뉴스) ‘왓챠’ 빅데이터로 예측해보니… ‘옥자’ 극장 개봉 시 관객수는?
 http://www.zamong.co.kr/archives/24177
--------------------------------------------------------------------------------------------------------------
-
-API 
-1. 영화진흥위원회  - 다같이
-https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
-
-2. IMDb  - 이형욱 
-https://www.imdb.com/interfaces/
-
-3. 네이버 영화 검색  - 박건우
-https://developers.naver.com/docs/search/movie/
-
-4. THE MOVIE DB  - 김지수
-https://www.themoviedb.org/
-
-5. KMDB  - 정호진
-https://www.kmdb.or.kr/info/api/apiDetail/6
-
--------------------------------------------------------------------------------------------------------------
-
-API 사용법
-1. 영화진흥위원회
-https://blog.naver.com/rlawoals93/221419866680
-
-2. THE MOVIE DB
-https://cosmosjs.blog.me/221328785149
 
 ---------------------------------------------------------------------------------------------------------------
 트렌드 검색
