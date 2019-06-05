@@ -47,3 +47,13 @@ https://blog.naver.com/rlawoals93/221419866680
 
 2. THE MOVIE DB
 https://cosmosjs.blog.me/221328785149
+
+---------------------------------------------------------------------------------------------------------------
+트렌드 검색
+
+1. 구글 트렌드
+https://trends.google.co.kr/trends/
+
+2. 네이버 데이터랩
+https://datalab.naver.com/
+
