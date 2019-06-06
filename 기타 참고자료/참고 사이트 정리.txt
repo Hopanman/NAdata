@@ -7,19 +7,10 @@ http://rstudio-pubs-static.s3.amazonaws.com/342272_28d856eb3a974b74a105971fb6e9f
 3. (뉴스)CGV 빅데이터로 본 영화 성공 공식
 https://www.mk.co.kr/news/culture/view/2015/04/314584/
 
-4. (논문)소셜 빅데이터를 이용한 영화 흥행 요인 분석
-https://www.researchgate.net/profile/O_Joun_Lee/publication/265555364_Movie_Box-office_Analysis_using_Social_Big_Data/links/54cef5bc0cf24601c0928841.pdf
-
-5. (블로그)빅데이터는 영화 관객 수를 알고 있다.
+4. (블로그)빅데이터는 영화 관객 수를 알고 있다.
 https://rayspace.tistory.com/362
 
-6. (논문)영화 흥행 실적 예측을 위한 빅데이터 전처리
-http://kiise.or.kr/e_journal/2014/12/KTCP/pdf/01.pdf
-
-7. (논문) 영화 흥행성과 예측을 위한 온라인 리뷰 마이닝 연구 : 개봉 첫 주 온라인 리뷰를 활용하며
-http://web.yonsei.ac.kr/dslab/Journal/ISR_Predicting%20Movie.pdf
-
-8. (뉴스) ‘왓챠’ 빅데이터로 예측해보니… ‘옥자’ 극장 개봉 시 관객수는?
+5. (뉴스) ‘왓챠’ 빅데이터로 예측해보니… ‘옥자’ 극장 개봉 시 관객수는?
 http://www.zamong.co.kr/archives/24177
 
 ---------------------------------------------------------------------------------------------------------------
