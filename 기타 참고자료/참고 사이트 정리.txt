@@ -13,6 +13,9 @@ https://rayspace.tistory.com/362
 5. (뉴스) ‘왓챠’ 빅데이터로 예측해보니… ‘옥자’ 극장 개봉 시 관객수는?
 http://www.zamong.co.kr/archives/24177
 
+6. (블로그)Scikit-Learn의 문서 전처리 기능
+https://datascienceschool.net/view-notebook/3e7aadbf88ed4f0d87a76f9ddc925d69/
+
 ---------------------------------------------------------------------------------------------------------------
 트렌드 검색
 
