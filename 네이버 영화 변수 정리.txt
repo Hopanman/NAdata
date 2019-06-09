@@ -1,0 +1,11 @@
+네이버 영화 검색 변수
+
+title : 영화제목
+link : 해당 영화 링크
+image : 영화 썸네일 URL
+subtitle : 영화 영문제목
+pubDate : 영화 제작년도
+director : 영화 감독
+actor : 영화 출연배우
+userRating : 유저들의 평점
+
