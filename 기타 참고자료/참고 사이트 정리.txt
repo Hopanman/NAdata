@@ -16,6 +16,9 @@ http://www.zamong.co.kr/archives/24177
 6. (블로그)Scikit-Learn의 문서 전처리 기능
 https://datascienceschool.net/view-notebook/3e7aadbf88ed4f0d87a76f9ddc925d69/
 
+7.(블로그)R을 활용한 유튜브 api이용법
+http://statkclee.github.io/politics/youtube-activity.html
+
 ---------------------------------------------------------------------------------------------------------------
 트렌드 검색
 
