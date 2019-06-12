@@ -1,11 +1,8 @@
 API 
-1. 영화진흥위원회  - 다같이
+1. 영화진흥위원회  - 박건우
 https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
 
-2. IMDb  - 이형욱 
-https://www.imdb.com/interfaces/
-
-3. 네이버 영화 검색  - 박건우
+3. 네이버 영화 검색  - 이형욱
 https://developers.naver.com/docs/search/movie/
 
 4. THE MOVIE DB  - 김지수
@@ -14,11 +11,21 @@ https://www.themoviedb.org/
 5. KMDB  - 정호진
 https://www.kmdb.or.kr/info/api/apiDetail/6
 
--------------------------------------------------------------------------------------------------------------
 
-API 사용법
-1. 영화진흥위원회
-https://blog.naver.com/rlawoals93/221419866680
+API
 
-2. THE MOVIE DB
-https://cosmosjs.blog.me/221328785149
+장르 개봉일 영화명 영화사(배급사) 제작사 제작국가or촬영장소 원언어 배역 런타임 개봉첫주상영스크린 개봉첫주상영횟수 누적매출액 누적관객수 네이버평점 관람등급 수상내역 예산 영화관련사람(배우, 스텝 성별로 나누어서 배우는 조연까지)
+
+
+
+크롤링
+
+줄거리
+네이버댓글(내용, 횟수)
+유튜브 공식 예고편(좋아요, 싫어요, 조회수, 댓글수)
+원작의존재여부
+
+코딩
+
+속편영화유무
+
