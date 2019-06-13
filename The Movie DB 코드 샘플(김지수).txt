@@ -1,0 +1,194 @@
+﻿** 주요점
+[Discover] 
+<Movie Discover> : 줄거리 추출 가능함.(한국어 가능)
+
+
+[Movies] 
+<Get Details> : 제작국가는 제작사의 소속국가인 것으로 보임. (여러 개일 경우도 있음)
+                              
+<Get Credits> : 배역명이 주연급의 경우 이름으로 나오며 주조연급 외에도 일부 추출됨. 
+
+<Get Release Dates> : 국가별 개봉일 및 개봉방식이 추출됨.
+
+##############################################################################################################
+##############################################################################################################
+*** 코드 샘플 *** : 입력키 / 주요추출내용 / 코드샘플 / 결과샘플 순으로 이루어짐. 
+
+
+[Discover] 
+
+<Movie Discover>
+-입력 : api_key
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-추출
+줄거리 "overview"
+개봉일 "release_date"
+원언어 "original_language"
+제목 "title"
+(영화아이디 "id")
+(장르아이디  "genre_ids")
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-코드
+import http.client
+
+conn = http.client.HTTPSConnection("api.themoviedb.org")
+
+payload = "{}"
+
+headers = { 'find': "movie" }
+
+conn.request("GET", "/3/discover/movie?page=1&include_video=false&include_adult=false&sort_by=popularity.desc&language=kor-Korea&api_key=2b4a725a283b9fa435aca3507c61bae2", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-결과
+{"page":1,"total_results":420371,"total_pages":21019,"results":[{"vote_count":496,"id":320288,"video":false,"vote_average":6.2,"title":"Dark Phoenix","popularity":354.07,"poster_path":"\/kZv92eTc0Gg3mKxqjjDAM73z9cy.jpg","original_language":"en","original_title":"Dark Phoenix","genre_ids":[878,28],"backdrop_path":"\/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg","adult":false,"overview":"The X-Men face their most formidable and powerful foe when one of their own, Jean Grey, starts to spiral out of control. During a rescue mission in outer space, Jean is nearly killed when she's hit by a mysterious cosmic force. Once she returns home, this force not only makes her infinitely more powerful, but far more unstable. The X-Men must now band together to save her soul and battle aliens that want to use Grey's new abilities to rule the galaxy.","release_date":"2019-06-05"},{"vote_count":11,"id":532321,"video":false,"vote_average":4.5,"title":"Re: Zero kara Hajimeru Isekai Seikatsu - Memory Snow","popularity":241.248,"poster_path":"\/xqR4ABkFTFYe8NDJi3knwWX7zfn.jpg","original_language":"ja","original_title":"Re:ゼロから始める異世界生活 Memory Snow","genre_ids":[16,12],"backdrop_path":"\/8sNz2DxYiYqGkxk66U8BqvuZZjE.jpg","adult":false,"overview":"Subaru and friends finally get a moment of peace, and Subaru goes on a certain secret mission that he must not let anyone find out about! However, even though Subaru is wearing a disguise, Petra and other children of the village immediately figure out who he is. Now that his mission was exposed within five seconds of it starting, what will happen with Subaru's \"date course\" with Emilia?","release_date":"2018-10-06"},{"vote_count":1405,"id":420817,"video":false,"vote_average":7.2,"title":"Aladdin","popularity":240.269,"poster_path":"\/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg","original_language":"en","original_title":"Aladdin","genre_ids":[12,14,10749,35,10751],"backdrop_path":"\/v4yVTbbl8dE1UP2dWu5CLyaXOku.jpg","adult":false,"overview":"A kindhearted street urchin named Aladdin embarks on a magical adventure after finding a lamp that releases a wisecracking genie while a power-hungry Grand Vizier vies for the same lamp that has the power to make their deepest wishes come true.","release_date":"2019-05-22"},{"vote_count":5592,"id":299537,"video":false,"vote_average":7,"title":"Captain Marvel","popularity":204.094,"poster_path":"\/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg","original_language":"en","original_title":"Captain Marvel","genre_ids":[28,12,878],"backdrop_path":"\/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg","adult":false,"overview":"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.","release_date":"2019-03-06"},
+
+
+
+##############################################################################################################
+##############################################################################################################
+
+
+
+[Movies]
+
+<Get Details>
+-입력 : api_key / movie_id
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-추출
+예산 "budget"
+장르 "genres":[{"id":878,"name":"Science Fiction"}
+원언어 "original_language"
+줄거리 "overview"
+제작사 "production_companies":[{"id":431,"logo_path":null,"name":"The Donners' Company","origin_country":"US"}
+제작국가 "production_countries":[{"iso_3166_1":"CN","name":"China"},{"iso_3166_1":"US","name":"United States of America"},{"iso_3166_1":"KR","name":"South Korea"},{"iso_3166_1":"HK","name":"Hong Kong"}]
+개봉일 "release_date"
+런타임 "runtime"
+언어 "spoken_languages"
+제목 "title"
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+- 코드 
+import http.client
+
+conn = http.client.HTTPSConnection("api.themoviedb.org")
+
+payload = "{}"
+
+conn.request("GET", "/3/movie/91073?language=en-US&api_key=2b4a725a283b9fa435aca3507c61bae2", payload)
+# conn.request("GET", "/3/movie/110415?language=en-US&api_key=2b4a725a283b9fa435aca3507c61bae2", payload)
+# conn.request("GET", "/3/movie/86825?language=en-US&api_key=2b4a725a283b9fa435aca3507c61bae2", payload)
+# conn.request("GET", "/3/movie/320288?language=en-US&api_key=2b4a725a283b9fa435aca3507c61bae2", payload)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-결과 
+{"adult":false,"backdrop_path":"/2y2T0CBh1O7bXUEUBAsd4Y39CRj.jpg","belongs_to_collection":null,"budget":6200000,"genres":[{"id":18,"name":"Drama"}],"homepage":null,"id":91073,"imdb_id":"tt1542482","original_language":"ko","original_title":"만추","overview":"Anna learns in prison that her mother has passed away in Seattle. Prison officials grants Anna a three day furlough to attend her mother's funeral. Anna embarks on a long trip to Seattle. Hoon is a Korean immigrant who works as a gigolo. Hoon is now on the run from a wealthy client's furious husband. These two seemingly lost souls are about to share three memorable days together.","popularity":2.948,"poster_path":"/4SNjM2dUrq21TPK2faONOQ8riav.jpg","production_companies":[{"id":1804,"logo_path":null,"name":"North by Northwest Entertainment","origin_country":""},{"id":2965,"logo_path":null,"name":"Boram Entertainment Inc.","origin_country":""},{"id":3618,"logo_path":null,"name":"Film Workshop","origin_country":""}],"production_countries":[{"iso_3166_1":"CN","name":"China"},{"iso_3166_1":"US","name":"United States of America"},{"iso_3166_1":"KR","name":"South Korea"},{"iso_3166_1":"HK","name":"Hong Kong"}],"release_date":"2010-10-08","revenue":4820000,"runtime":113,"spoken_languages":[{"iso_639_1":"en","name":"English"},{"iso_639_1":"zh","name":"普通话"},{"iso_639_1":"ko","name":"한국어/조선말"}],"status":"Released","tagline":"","title":"Late Autumn","video":false,"vote_average":7.2,"vote_count":26}
+
+{"adult":false,"backdrop_path":"/dUrRhiIb9sWckFsKmdNR39Ot1eG.jpg","belongs_to_collection":null,"budget":39200000,"genres":[{"id":28,"name":"Action"},{"id":878,"name":"Science Fiction"},{"id":18,"name":"Drama"}],"homepage":"http://snowpiercer-film.com/","id":110415,"imdb_id":"tt1706620","original_language":"ko","original_title":"Snowpiercer","overview":"In a future where a failed global-warming experiment kills off most life on the planet, a class system evolves aboard the Snowpiercer, a train that travels around the globe via a perpetual-motion engine.","popularity":12.743,"poster_path":"/oP0ZWr6MsaQ1TV7xvnZJMKSfz0H.jpg","production_companies":[{"id":7036,"logo_path":"/javbyY0ZCvlFJtly3tpZqf2NwLX.png","name":"CJ Entertainment","origin_country":"KR"},{"id":7270,"logo_path":null,"name":"Opus Pictures","origin_country":"KR"},{"id":11345,"logo_path":"/xhnnHfsqEimD4r0QeUz3GSvcv73.png","name":"Stillking Films","origin_country":"CZ"},{"id":21122,"logo_path":null,"name":"SnowPiercer","origin_country":""},{"id":34725,"logo_path":null,"name":"Moho Film","origin_country":"KR"}],"production_countries":[{"iso_3166_1":"CZ","name":"Czech Republic"},{"iso_3166_1":"KR","name":"South Korea"}],"release_date":"2013-08-01","revenue":86758912,"runtime":127,"spoken_languages":[{"iso_639_1":"en","name":"English"},{"iso_639_1":"fr","name":"Français"},{"iso_639_1":"ja","name":"日本語"},{"iso_639_1":"ko","name":"한국어/조선말"}],"status":"Released","tagline":"AD 2031, the passengers in the train are the only survivors on Earth.","title":"Snowpiercer","video":false,"vote_average":6.8,"vote_count":4748}
+
+{"adult":false,"backdrop_path":"/6BqAHEKpm88t3z678mxJnpWNx55.jpg","belongs_to_collection":null,"budget":12000000,"genres":[{"id":18,"name":"Drama"},{"id":27,"name":"Horror"},{"id":53,"name":"Thriller"}],"homepage":"http://www.foxsearchlight.com/stoker/","id":86825,"imdb_id":"tt1682180","original_language":"en","original_title":"Stoker","overview":"After India's father dies, her Uncle Charlie, who she never knew existed, comes to live with her and her unstable mother. She comes to suspect this mysterious, charming man has ulterior motives and becomes increasingly infatuated with him.","popularity":9.168,"poster_path":"/SnWKUNVfnLCkKfXkOfpbbAaPUp.jpg","production_companies":[{"id":43,"logo_path":"/4RgIPr55kBakgupWkzdDxqXJEqr.png","name":"Fox Searchlight Pictures","origin_country":"US"},{"id":9350,"logo_path":"/xz60JVoUHpOeg1cJbxzMJiwbuL7.png","name":"Indian Paintbrush","origin_country":"US"},{"id":1645,"logo_path":"/6Ry6uNBaa0IbbSs1XYIgX5DkA9r.png","name":"Scott Free Productions","origin_country":""}],"production_countries":[{"iso_3166_1":"US","name":"United States of America"}],"release_date":"2013-02-28","revenue":12077441,"runtime":99,"spoken_languages":[{"iso_639_1":"en","name":"English"}],"status":"Released","tagline":"Innocence Ends.","title":"Stoker","video":false,"vote_average":6.6,"vote_count":1282}
+
+
+{"adult":false,"backdrop_path":"/phxiKFDvPeQj4AbkvJLmuZEieDU.jpg","belongs_to_collection":null,"budget":200000000,"genres":[{"id":878,"name":"Science Fiction"},{"id":28,"name":"Action"}],"homepage":"http://darkphoenix.com","id":320288,"imdb_id":"tt6565702","original_language":"en","original_title":"Dark Phoenix","overview":"The X-Men face their most formidable and powerful foe when one of their own, Jean Grey, starts to spiral out of control. During a rescue mission in outer space, Jean is nearly killed when she's hit by a mysterious cosmic force. Once she returns home, this force not only makes her infinitely more powerful, but far more unstable. The X-Men must now band together to save her soul and battle aliens that want to use Grey's new abilities to rule the galaxy.","popularity":335.809,"poster_path":"/kZv92eTc0Gg3mKxqjjDAM73z9cy.jpg","production_companies":[{"id":431,"logo_path":null,"name":"The Donners' Company","origin_country":"US"},{"id":25,"logo_path":"/qZCc1lty5FzX30aOCVRBLzaVmcp.png","name":"20th Century Fox","origin_country":"US"},{"id":28788,"logo_path":null,"name":"Genre Films","origin_country":"US"},{"id":9168,"logo_path":"/hQNXrYIuyLRxMSBuGHk0GX7CCBS.png","name":"Bad Hat Harry Productions","origin_country":"US"},{"id":7505,"logo_path":"/837VMM4wOkODc1idNxGT0KQJlej.png","name":"Marvel Entertainment","origin_country":"US"},{"id":112049,"logo_path":null,"name":"Kinberg Genre","origin_country":""}],"production_countries":[{"iso_3166_1":"US","name":"United States of America"}],"release_date":"2019-06-05","revenue":0,"runtime":114,"spoken_languages":[{"iso_639_1":"en","name":"English"}],"status":"Released","tagline":"The phoenix will rise","title":"Dark Phoenix","video":false,"vote_average":6.2,"vote_count":496}
+
+
+##############################################################################################################
+
+
+<Get Credits>
+-입력 : api_key / movie_id
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-추출
+출연 : 캐스트아이디/캐릭터/크레딧아이디/성별/아이디/이름/순서/프로필경로   * 주조연급 외에도 일부 있음
+"cast":[{"cast_id":0,"character":"Kim Ki-taek","credit_id":"5a4db31fc3a3683b82003a00","gender":2,"id":20738,"name":"Song Kang-ho","order":0,"profile_path":"/joAXWwyjeed7qRDJ6jxSiMi7f5i.jpg"}
+스탭 : 크레딧아이디/담당/성별/아이디/직업/이름/프로필경로
+"crew"[{"credit_id":"5a4db333c3a3683b74004389","department":"Directing","gender":2,"id":21684,"job":"Director","name":"Bong Joon-ho","profile_path":"/stwnTvZAoD8gEJEDHpDQyLCyDy5.jpg"}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-코드
+import http.client
+
+conn = http.client.HTTPSConnection("api.themoviedb.org")
+
+payload = "{}"
+
+conn.request("GET", "/3/movie/496243/credits?api_key=2b4a725a283b9fa435aca3507c61bae2", payload)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-결과
+{"id":496243,"cast":[{"cast_id":0,"character":"Kim Ki-taek","credit_id":"5a4db31fc3a3683b82003a00","gender":2,"id":20738,"name":"Song Kang-ho","order":0,"profile_path":"/joAXWwyjeed7qRDJ6jxSiMi7f5i.jpg"},{"cast_id":2,"character":"Park Dong-ik","credit_id":"5bcf34f9c3a3686637014df3","gender":2,"id":115290,"name":"Lee Sun-kyun","order":1,"profile_path":"/JmYP4j8PR2ZrycF5SlOHXi6Ctj.jpg"},{"cast_id":3,"character":"Yeon-kyo ( Mr. Park's wife )","credit_id":"5bcf351f92514172df0118e1","gender":1,"id":556435,"name":"Cho Yeo-jeong","order":2,"profile_path":"/5MgWM8pkUiYkj9MEaEpO0Ir1FD9.jpg"},{"cast_id":4,"character":"Ki-woo ( Ki-taek's son )","credit_id":"5bcf358dc3a368662f013901","gender":2,"id":1255881,"name":"Choi Woo-shik","order":3,"profile_path":"/hfskkkziJrGwobqik02RSoyt6v0.jpg"},{"cast_id":5,"character":"Ki-jung ( Ki-taek's daughter )","credit_id":"5bcf359b0e0a26624f012c00","gender":1,"id":1442583,"name":"Park So-dam","order":4,"profile_path":"/uWppIvypWODMjCxiGDWX92y86ci.jpg"},{"cast_id":8,"character":"Moon-gwang","credit_id":"5bcfb7620e0a266245022d44","gender":1,"id":1572354,"name":"Lee Jung-eun","order":5,"profile_path":"/45qpdANxxvU3danQPEhpGSQM9MX.jpg"},{"cast_id":7,"character":"Chung-sook ( Ki-taek's wife )","credit_id":"5bcfb74bc3a36866370257e5","gender":1,"id":2158882,"name":"Chang Hyae-jin","order":6,"profile_path":"/wUYrgv1lZFjEmX4mjQjJunoXuKZ.jpg"},{"cast_id":52,"character":"Geun-se","credit_id":"5cf0d6c70e0a264876ca0538","gender":2,"id":1694435,"name":"Park Myung-hoon","order":7,"profile_path":"/8IgD7YBQKi2K94RSCwXCCrKcQrA.jpg"},{"cast_id":50,"character":"Da-hye ( Mr. Park's daughter )","credit_id":"5cf0d6a00e0a267cf0ca05d4","gender":1,"id":1418762,"name":"Jung Ji-so","order":8,"profile_path":"/jVhGROruHO7tnVhKu2QlxF2UFGg.jpg"},{"cast_id":51,"character":"Da-song ( Mr. Park's son )","credit_id":"5cf0d6af9251411cdbb88c70","gender":2,"id":2306987,"name":"Jung Hyeon-jun","order":9,"profile_path":"/vZadA6ip6V2kh0VZW9RwnLcYFgW.jpg"},{"cast_id":53,"character":"Driver Yoon","credit_id":"5cf0d72ac3a368697a1e3562","gender":2,"id":1709230,"name":"Park Keun-rok","order":10,"profile_path":"/1ccYLjt70Y0Kem22ypWxrRApbiH.jpg"},{"cast_id":62,"character":"Pizza manager","credit_id":"5cf24889c3a36827ab200476","gender":1,"id":2326809,"name":"Jung Yi-seo","order":11,"profile_path":"/o6Nfe0BiZs6CCSm8BigPshbu0px.jpg"},{"cast_id":59,"character":"Neighbor","credit_id":"5cf1dd6292514171fdba362b","gender":2,"id":2326615,"name":"Jeong Ik-han","order":12,"profile_path":"/wiX9IsqQNYfBrpZWGfdGdAB4Fst.jpg"},{"cast_id":64,"character":"Party man","credit_id":"5cfa4e17c3a3681173277f4f","gender":0,"id":1537955,"name":"Lee Joo-hyung","order":13,"profile_path":"/1utBxjLH4VNVsGVog8ICqq3bwfV.jpg"},{"cast_id":55,"character":"A Singer","credit_id":"5cf0d73e0e0a266b1dcc4047","gender":1,"id":2320125,"name":"Lee Ji-hye","order":14,"profile_path":"/jyNJd288QFg0Me9a5DaLyQszuE9.jpg"},{"cast_id":57,"character":"German father","credit_id":"5cf0d7569251411882b8980b","gender":2,"id":1835700,"name":"Andreas Fronk","order":15,"profile_path":"/lFPWRxiqquHNfLT9Mb0EUMwJ0z5.jpg"},{"cast_id":56,"character":"German mother","credit_id":"5cf0d74b92514171fdb89ba4","gender":1,"id":2320126,"name":"Anna Elisabeth Rihlmann","order":16,"profile_path":"/nFtorJ4FmHPQ3kKtbqtirwZWFRt.jpg"},{"cast_id":63,"character":"Min-hyuk","credit_id":"5cf249c30e0a264876cc78af","gender":2,"id":1347525,"name":"Park Seo-jun","order":17,"profile_path":"/jqkXsFYFL7ph4CMJoBJABdF3RrC.jpg"}],
+
+"crew":[{"credit_id":"5a4db333c3a3683b74004389","department":"Directing","gender":2,"id":21684,"job":"Director","name":"Bong Joon-ho","profile_path":"/stwnTvZAoD8gEJEDHpDQyLCyDy5.jpg"},{"credit_id":"5c24e15f9251414c16c631f1","department":"Camera","gender":2,"id":68909,"job":"Director of Photography","name":"Hong Kyung-pyo","profile_path":"/xx4dwiIWfjTdyg5Hm4DRAhrXCmN.jpg"},{"credit_id":"5cc695860e0a2678a0ef4f83","department":"Sound","gender":2,"id":2127965,"job":"Original Music Composer","name":"Jung Jae-il","profile_path":"/a1q0hsgTTUJwaq0T3W02mi1b6Q6.jpg"},{"credit_id":"5cd191a0c3a3683b2ed91904","department":"Editing","gender":2,"id":1674268,"job":"Editor","name":"Yang Jin-mo","profile_path":"/ptbh5shbzfD543b4RrDjsW3dbz3.jpg"},{"credit_id":"5cd191afc3a368472ddb413d","department":"Costume & Make-Up","gender":1,"id":1294810,"job":"Costume Design","name":"Choi Se-yeon","profile_path":"/eMGSgXo3h2dBaUxmw3UAmcwKdSa.jpg"},{"credit_id":"5cd191c09251412078252e8d","department":"Costume & Make-Up","gender":0,"id":2197063,"job":"Makeup & Hair","name":"Kim Seo-young","profile_path":null},{"credit_id":"5cd191d30e0a262fcd0a6967","department":"Sound","gender":0,"id":2078582,"job":"Sound Supervisor","name":"Choi Tae-young","profile_path":null},{"credit_id":"5cd191e00e0a264a95007e0b","department":"Art","gender":2,"id":1674269,"job":"Production Design","name":"Lee Ha-jun","profile_path":"/saRckLEpOCBvzQVS2bMTOU7wPR.jpg"},{"credit_id":"5cd19220c3a3681fd7da6ecb","department":"Visual Effects","gender":0,"id":2307001,"job":"Visual Effects Supervisor","name":"Hong Jeong-ho","profile_path":null},{"credit_id":"5ce304e9c3a36809ec200d36","department":"Writing","gender":2,"id":21684,"job":"Screenplay","name":"Bong Joon-ho","profile_path":"/stwnTvZAoD8gEJEDHpDQyLCyDy5.jpg"},{"credit_id":"5ce305ca9251412cfabdf331","department":"Production","gender":1,"id":41288,"job":"Executive Producer","name":"Miky Lee","profile_path":"/1KaAIoRs6KuW7rdHzbA5RLE1jto.jpg"},{"credit_id":"5ce30609c3a36809ec200f5c","department":"Production","gender":0,"id":2308359,"job":"Co-Executive Producer","name":"Heo Min-heoi","profile_path":null},{"credit_id":"5ce755800e0a265ac0d05cd1","department":"Production","gender":0,"id":2187821,"job":"Producer","name":"Jang Young-hwan","profile_path":null},{"credit_id":"5ce755c5c3a3686494245dd3","department":"Writing","gender":0,"id":2320121,"job":"Screenplay","name":"Han Jin-won","profile_path":null},{"credit_id":"5cea612592514175e8bad7dc","department":"Lighting","gender":2,"id":2200971,"job":"Lighting Director","name":"Kim Chang-ho","profile_path":null},{"credit_id":"5cea80199251416a3fbb33ce","department":"Sound","gender":0,"id":1611457,"job":"Production Sound Mixer","name":"Eun Hui-su","profile_path":null},{"credit_id":"5ceb908f0e0a261bf2ccf27c","department":"Writing","gender":2,"id":21684,"job":"Story","name":"Bong Joon-ho","profile_path":"/stwnTvZAoD8gEJEDHpDQyLCyDy5.jpg"},{"credit_id":"5ceb90afc3a3685a161e4e08","department":"Production","gender":1,"id":2187912,"job":"Producer","name":"Kwak Sin-ae","profile_path":null},{"credit_id":"5ceb90b9c3a368252020c5b2","department":"Production","gender":0,"id":1305523,"job":"Producer","name":"Moon Yang-kwon","profile_path":null},{"credit_id":"5cecd9a60e0a265cded90137","department":"Sound","gender":0,"id":2225941,"job":"Sound Effects Designer","name":"Gang Hye-yeong","profile_path":null},{"credit_id":"5cf0d31fc3a3686b6f1fc2da","department":"Writing","gender":0,"id":1374544,"job":"Adaptation","name":"Kim Dae-hwan","profile_path":null},{"credit_id":"5cf2190c0e0a261e00cb75a1","department":"Crew","gender":2,"id":2193292,"job":"Thanks","name":"Sohn Suk-hee","profile_path":"/wk8aep7ZnwU0Ds1kxnwRRqOmrW2.jpg"}]}
+
+
+##############################################################################################################
+
+
+<Get Keywords>
+-입력 : api_key / movie_id
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-추출
+키워드 "keywords":[{"id":1353,"name":"underground"}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-코드
+import http.client
+
+conn = http.client.HTTPSConnection("api.themoviedb.org")
+
+payload = "{}"
+
+conn.request("GET", "/3/movie/496243/keywords?api_key=2b4a725a283b9fa435aca3507c61bae2", payload)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-결과
+{"id":496243,"keywords":[{"id":1353,"name":"underground"},{"id":5732,"name":"birthday party"},{"id":5752,"name":"private lessons"},{"id":14514,"name":"class differences"},{"id":18035,"name":"family"},{"id":33421,"name":"crime family"},{"id":158540,"name":"south korea"},{"id":173272,"name":"flood"},{"id":188861,"name":"smell"},{"id":198673,"name":"unemployed"}]}
+
+
+##############################################################################################################
+
+
+<Get Release Dates>
+-입력 : api_key / movie_id
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-추출
+개봉일 : 국가/날짜/종류
+{"id":496243,"results":[{"iso_3166_1":"HK","release_dates":[{"certification":"","iso_639_1":"","note":"","release_date":"2019-06-20T00:00:00.000Z","type":3}]},{"iso_3166_1":"TW","release_dates":[{"certification":"","iso_639_1":"","note":"","release_date":"2019-06-28T00:00:00.000Z","type":3}]}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-코드
+import http.client
+
+conn = http.client.HTTPSConnection("api.themoviedb.org")
+
+payload = "{}"
+
+conn.request("GET", "/3/movie/496243/release_dates?api_key=2b4a725a283b9fa435aca3507c61bae2", payload)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+-결과
+{"id":496243,"results":[{"iso_3166_1":"HK","release_dates":[{"certification":"","iso_639_1":"","note":"","release_date":"2019-06-20T00:00:00.000Z","type":3}]},{"iso_3166_1":"TW","release_dates":[{"certification":"","iso_639_1":"","note":"","release_date":"2019-06-28T00:00:00.000Z","type":3}]},{"iso_3166_1":"SG","release_dates":[{"certification":"","iso_639_1":"","note":"","release_date":"2019-06-27T00:00:00.000Z","type":3}]},{"iso_3166_1":"RU","release_dates":[{"certification":"18+","iso_639_1":"ru","note":"","release_date":"2019-07-04T00:00:00.000Z","type":3}]},{"iso_3166_1":"KR","release_dates":[{"certification":"15세 이상 관람가","iso_639_1":"ko","note":"","release_date":"2019-05-30T00:00:00.000Z","type":3}]},{"iso_3166_1":"MY","release_dates":[{"certification":"","iso_639_1":"","note":"","release_date":"2019-06-27T00:00:00.000Z","type":3}]},{"iso_3166_1":"AU","release_dates":[{"certification":"","iso_639_1":"","note":"Sydney Film Festival","release_date":"2019-06-15T00:00:00.000Z","type":1}]},{"iso_3166_1":"US","release_dates":[{"certification":"","iso_639_1":"","note":"Los Angeles and New York","release_date":"2019-10-11T00:00:00.000Z","type":2}]},{"iso_3166_1":"FR","release_dates":[{"certification":"","iso_639_1":"","note":"Festival de Cannes","release_date":"2019-05-21T00:00:00.000Z","type":1},{"certification":"","iso_639_1":"","note":"","release_date":"2019-06-05T00:00:00.000Z","type":3}]}]}
+
+
+##############################################################################################################
+
+
+
+
+
