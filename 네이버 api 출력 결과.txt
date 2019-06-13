@@ -1,0 +1,4 @@
+네이버 api 출력 결과
+
+
+[{'actor': '나오미 스콧|윌 스미스|메나 마수드|', 'title': '<b>알라딘</b>', 'pubDate': '2019', 'userRating': '9.49', 'image': 'https://ssl.pstatic.net/imgmovie/mdi/mit110/1637/163788_P18_105943.jpg', 'director': '가이 리치|', 'link': 'https://movie.naver.com/movie/bi/mi/basic.nhn?code=163788', 'subtitle': 'Aladdin'}]
