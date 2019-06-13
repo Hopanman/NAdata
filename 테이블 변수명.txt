@@ -1,0 +1,48 @@
+기본키 id
+-number
+영화명 movieNm
+-varchar2(255)
+개봉일 openDt
+-date
+런타임 showTm
+-number
+제작국가 nationNm
+-varchar2(200)
+원언어 ori_lang
+-varchar2(30)
+장르 genres
+-varchar2(200)
+관람등급 watchGrade
+-varchar2(50)
+영화사 company
+-varchar2(255)
+예산 budget
+-number
+키워드 keyword
+-varchar2(255)
+수상내역 award
+-varchar2(255)
+네이버 댓글 내용 naver_cmt
+-varchar2(255)
+네이버 댓글 횟수 naver_cmt_nn
+-number
+네이버 기대지수 naver_ex_pt
+-number
+네이버 개봉전 평점 naver_pre_eval
+-number
+원작도서의존재여부 ori_book
+-number
+유튜브 좋아요 youtube_like
+-number
+유튜브 싫어요 youtube_dislike
+-number
+유튜브 조회수 youtube_view
+-number
+유튜브 댓글수 youtube_cmt
+-number
+배우 actor
+-varchar2(1000)
+스텝 staff
+-varchar2(1000)
+누적관객수 audiAcc
+-number
