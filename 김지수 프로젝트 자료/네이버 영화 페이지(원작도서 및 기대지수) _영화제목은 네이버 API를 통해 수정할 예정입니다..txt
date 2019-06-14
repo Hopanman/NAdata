@@ -1,0 +1,82 @@
+from urllib.request import urlopen 
+from bs4 import BeautifulSoup 
+import re
+ 
+# 영화 개수 : 10001 ~ 186611 (176,601개)
+# url 주소 기본값: https://movie.naver.com/movie/bi/mi/basic.nhn?code=영화코드
+myUrl = 'https://movie.naver.com'
+
+code_list = []
+title_list = []
+ 
+# movieCd = 10001
+movieCd = 186611
+
+try:
+#     while True:
+    while movieCd <= 200000:    
+        newUrl = myUrl + '/movie/bi/mi/basic.nhn?code=%d' % (movieCd)
+        # print(newUrl)
+        # print('-'*50)
+                   
+        response = urlopen(newUrl)
+            
+        soup = BeautifulSoup(response, 'html.parser')
+        # print(soup)
+         
+        ###### 영화 제목 시작
+        mydiv = soup.select_one('div')
+                        
+        movieNm = mydiv.select_one('h3.h_movie')
+                      
+        if movieNm == None:
+            print('영화 코드 : %d' % (movieCd))
+            print('페이지 없음')
+
+        else:
+            movieNm = movieNm.find('a')
+            movieNm = movieNm.get_text()
+            code_list.append(movieCd)
+            title_list.append(movieNm)
+            print('영화 코드 : %d' % (movieCd))
+            print('영화 제목 : %s' % (movieNm))
+            
+            ###### 원작 도서 시작 
+            # 원작도서 있음 : 1 / 없음 : 0
+            myLi = soup.find('a', attrs={'title':'원작 도서'})
+            if myLi != None:
+                ori_book = myLi.get_text()
+                print('원작도서 : 1')
+                # print(myLi) 
+            else:
+                print('원작도서 : 0')  
+            ###### 원작 도서 끝
+            
+            ###### 기대지수 시작
+            naver_ex_pt = soup.select_one('span#interest_cnt_basic')
+            naver_ex_pt = naver_ex_pt.get_text()
+            # print(naver_ex_pt)
+            naver_ex_pt = re.sub('[가-히]+','', naver_ex_pt)
+            print('기대지수 : %s' % (naver_ex_pt))
+            ###### 기대지수 끝
+            
+        ###### 영화 제목 끝
+                
+        movieCd += 1
+        print('-'*50)
+     
+except Exception as err :
+    print('movieCD : %d 오류' % (movieCd))
+    movieCd += 1
+    pass
+
+
+
+print('영화코드 리스트 :', code_list)
+print('영화제목 리스트 :', title_list)
+print('영화코드 최소값 : %d' % (min(code_list)) )
+print('영화코드 최대값 : %d' % (max(code_list)) )
+print('finished')
+
+
+
