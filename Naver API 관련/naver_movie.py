@@ -4,8 +4,8 @@ import datetime
 
 ##api계정으로 접속
 def get_request_url(url):
-    client_id='sQ_53I11un7a4GN_0E_v'
-    client_secret='BylBuZooyk'
+    client_id='client_id'
+    client_secret='password'
     
     req=urllib.request.Request(url)
     req.add_header("X-Naver-Client-Id", client_id)
