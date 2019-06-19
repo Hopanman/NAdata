@@ -1,8 +1,3 @@
-
-# coding: utf-8
-
-# In[180]:
-
 import urllib.request
 import json
 import pandas as pd
@@ -10,13 +5,8 @@ from pandas import DataFrame
 from json import JSONDecodeError
 import re
 
-
-# In[181]:
-
 service_key = ''
 
-
-# In[182]:
 
 def urlRequest(url):
     req = urllib.request.Request(url)
@@ -32,8 +22,6 @@ def urlRequest(url):
         
         return None
 
-
-# In[183]:
 
 def movieExtractor(startdate, enddate, count):
     
@@ -64,8 +52,6 @@ def movieExtractor(startdate, enddate, count):
             print('JSON데이터에 문제가 있습니다 직접 확인해주세요!')
             return None
 
-
-# In[184]:
 
 def kmdbValueSearcher(year, index, *keys):
     
@@ -102,32 +88,12 @@ def kmdbValueSearcher(year, index, *keys):
         return valuelist
 
 
-# In[185]:
-
 yearlist = ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019']
-
-
-# In[186]:
-
 startdate = '0101'
-
-
-# In[187]:
-
 enddate = '0609'
-
-
-# In[188]:
-
 movielist=list()
-
-
-# In[189]:
-
 columns = ['개봉일','영화제목','키워드','수상내역']
 
-
-# In[190]:
 
 for year in yearlist:
     for idx in range(1000):
@@ -161,12 +127,8 @@ for year in yearlist:
             print(e)
 
 
-# In[191]:
-
 errorlist = ['2015년123','2015년362','2015년741','2016년515','2017년838','2018년432','2018년653']
 
-
-# In[192]:
 
 for error in errorlist:
     intargs = error.split('년')
@@ -181,32 +143,12 @@ for error in errorlist:
     movielist.append([err_rel_data, valuelist[1], valuelist[2], valuelist[3]+'|'+valuelist[4]])
 
 
-# In[193]:
-
 movietable = DataFrame(movielist, columns=columns)
-
-
-# In[194]:
-
 movietable = movietable.sort_values('영화제목')
-
-
-# In[195]:
-
 movietable['영화제목'] = movietable['영화제목'].apply(lambda x: x.strip())
-
-
-# In[196]:
-
 movietable['수상내역'] = movietable['수상내역'].apply(lambda x: x.strip('|'))
-
-
-# In[197]:
-
 movietable = movietable.reindex(['영화제목','개봉일','키워드','수상내역'], axis=1)
 
-
-# In[198]:
 
 movietable.loc[7258,'개봉일'] = '20190425'
 movietable.loc[6006,'개봉일'] = '20170828'
@@ -297,13 +239,9 @@ movietable.loc[6060,'개봉일'] = '20180708'
 movietable.loc[6041,'개봉일'] = None
 
 
-# In[199]:
-
 movietable.loc[4040,'개봉일'] = '20150618'
 movietable.loc[4416,'개봉일'] = '20161201'
 
-
-# In[200]:
 
 movietable.loc[1012,'개봉일'] = '20120801'
 movietable.loc[994,'개봉일'] = None
@@ -346,17 +284,7 @@ movietable.loc[30,'개봉일'] = None
 movietable.loc[1078,'개봉일'] = None
 
 
-# In[201]:
-
 movietable['개봉일'] = pd.to_datetime(movietable['개봉일'])
-
-
-# In[202]:
-
 movietable.info()
-
-
-# In[203]:
-
 movietable.to_csv('KMDB변수.csv', index=False, encoding='utf-8')
 
