@@ -1,4 +1,4 @@
-                            2b4a725a283b9fa435aca3507c61bae2                                                        API
+                                                                                   API
 
 <영진위> https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
 개봉일, 누적관객수, 영화명, 런타임, 제작국가, 장르, 관람등급, 영화사, 감독명

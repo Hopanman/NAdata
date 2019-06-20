@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import urllib.request
 import json
 import pandas as pd
@@ -5,7 +11,14 @@ from pandas import DataFrame
 from json import JSONDecodeError
 import re
 
+
+# In[43]:
+
+
 service_key = ''
+
+
+# In[5]:
 
 
 def urlRequest(url):
@@ -21,6 +34,9 @@ def urlRequest(url):
         print('크롤링 실패 ㅜㅜ', e, '확인바람')
         
         return None
+
+
+# In[6]:
 
 
 def movieExtractor(startdate, enddate, count):
@@ -53,6 +69,9 @@ def movieExtractor(startdate, enddate, count):
             return None
 
 
+# In[13]:
+
+
 def kmdbValueSearcher(year, index, *keys):
     
     end_point = 'http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp?'
@@ -77,7 +96,7 @@ def kmdbValueSearcher(year, index, *keys):
         valuelist = list()
         for key in keys:
             
-            if key == 'rating':
+            if key in ['rating','director']:
                 value = eval(re.search('(?<="%s":)\[.*?\]'%(key), data).group())
                 valuelist.append(value)
             else:
@@ -88,11 +107,17 @@ def kmdbValueSearcher(year, index, *keys):
         return valuelist
 
 
+# In[14]:
+
+
 yearlist = ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019']
 startdate = '0101'
 enddate = '0609'
 movielist=list()
-columns = ['개봉일','영화제목','키워드','수상내역']
+columns = ['개봉일','영화명','영문명','감독명','키워드','수상내역','줄거리']
+
+
+# In[18]:
 
 
 for year in yearlist:
@@ -114,8 +139,14 @@ for year in yearlist:
                             if ratingdata['ratingMain'] == 'Y':
                                 rel_data = ratingdata['releaseDate']
                                 break
-                                
-                        movielist.append([rel_data, resultdict['title'], resultdict['keywords'], resultdict['Awards1']+'|'+resultdict['Awards2']])
+                        
+                        all_dir = ''
+                        if resultdict['director']:
+                            for dirdata in resultdict['director']:
+                                all_dir += dirdata['directorNm'] + ','
+                        
+                            
+                        movielist.append([rel_data, resultdict['title'], resultdict['titleEng'], all_dir, resultdict['keywords'], resultdict['Awards1']+'|'+resultdict['Awards2'], resultdict['plot']])
 
                 else:
                     power = False
@@ -127,27 +158,70 @@ for year in yearlist:
             print(e)
 
 
+# In[20]:
+
+
 errorlist = ['2015년123','2015년362','2015년741','2016년515','2017년838','2018년432','2018년653']
+
+
+# In[21]:
 
 
 for error in errorlist:
     intargs = error.split('년')
-    valuelist = kmdbValueSearcher(int(intargs[0]), int(intargs[1]), 'rating', 'title', 'keywords', 'Awards1', 'Awards2')
+    valuelist = kmdbValueSearcher(int(intargs[0]), int(intargs[1]), 'rating', 'director', 'title', 'titleEng', 'keywords', 'Awards1', 'Awards2', 'plot')
     
     for err_ratingdata in valuelist[0]:
         
         if err_ratingdata['ratingMain'] == 'Y':
             err_rel_data = err_ratingdata['releaseDate']
             break
+    
+    err_all_dir = ''
+    if valuelist[1]:
+        for err_dirdata in valuelist[1]:
+            err_all_dir += err_dirdata['directorNm'] + ','
             
-    movielist.append([err_rel_data, valuelist[1], valuelist[2], valuelist[3]+'|'+valuelist[4]])
+    movielist.append([err_rel_data, valuelist[2], valuelist[3], err_all_dir, valuelist[4], valuelist[5]+'|'+valuelist[6], valuelist[7]])
+
+
+# In[22]:
 
 
 movietable = DataFrame(movielist, columns=columns)
-movietable = movietable.sort_values('영화제목')
-movietable['영화제목'] = movietable['영화제목'].apply(lambda x: x.strip())
+
+
+# In[24]:
+
+
+movietable = movietable.sort_values('영화명')
+
+
+# In[26]:
+
+
+movietable['영화명'] = movietable['영화명'].apply(lambda x: x.strip())
+
+
+# In[29]:
+
+
 movietable['수상내역'] = movietable['수상내역'].apply(lambda x: x.strip('|'))
-movietable = movietable.reindex(['영화제목','개봉일','키워드','수상내역'], axis=1)
+
+
+# In[33]:
+
+
+movietable['감독명'] = movietable['감독명'].apply(lambda x: x.strip(','))
+
+
+# In[36]:
+
+
+movietable = movietable.reindex(['영화명','영문명','감독명','개봉일','키워드','줄거리','수상내역'], axis=1)
+
+
+# In[37]:
 
 
 movietable.loc[7258,'개봉일'] = '20190425'
@@ -239,8 +313,14 @@ movietable.loc[6060,'개봉일'] = '20180708'
 movietable.loc[6041,'개봉일'] = None
 
 
+# In[38]:
+
+
 movietable.loc[4040,'개봉일'] = '20150618'
 movietable.loc[4416,'개봉일'] = '20161201'
+
+
+# In[39]:
 
 
 movietable.loc[1012,'개봉일'] = '20120801'
@@ -284,7 +364,20 @@ movietable.loc[30,'개봉일'] = None
 movietable.loc[1078,'개봉일'] = None
 
 
+# In[40]:
+
+
 movietable['개봉일'] = pd.to_datetime(movietable['개봉일'])
+
+
+# In[41]:
+
+
 movietable.info()
+
+
+# In[42]:
+
+
 movietable.to_csv('KMDB변수.csv', index=False, encoding='utf-8')
 
