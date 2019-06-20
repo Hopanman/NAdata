@@ -1,0 +1,76 @@
+﻿#######################################
+우리가 정한 변수 중 데이터셋에 있는 정보
+#######################################
+title.basics.tsv
+genres - 장르
+startYear - 개봉일
+primaryTitle - 영화명(잘 알려진 제목)
+isAdult - 관람등급(성인영화여부)
+runtimeMinutes - 상영시간(런타임)
+
+title.akas.tsv
+language - 제목언어
+
+title.principal.tsv (영화 관련사람 정보(주연,영화감독,배역))
+category - 배우,감독 
+job - 감독의 직책 
+characters - 배역명
+########################################
+title.akas.tsv
+'titleId' -tconst
+'ordering' - 순서 
+'title' - 지역제목
+'region' - 해당지역
+'language' - 제목 언어
+'types' - 방영형태?
+'attributes' - ?? 
+'isOriginalTitle' - 오리지날인지 여부
+
+title.basics.tsv
+'tconst', - tconst
+'titleType', - movie, short, tvseries, tvepisode, video, etc
+'primaryTitle', - 잘 알려진 제목
+'originalTitle', - 원제
+'isAdult', - 관람등급관련(성인영화여부)
+'startYear', - 개봉연도
+'endYear',  - tv시리즈 종영연도(다른것은 결측치처리)
+'runtimeMinutes', - 상영시간
+'genres' - 연관 장르
+
+title.crew.tsv
+'tconst', - tconst
+'directors', - 감독들
+'writers' - 작가들
+
+title.episode.tsv (tv 에피소드 정보)
+'tconst', - 에피소드 tconst 
+'parentTconst', - tv시리즈 tconst
+'seasonNumber', - 해당 에피소드가 속한 시즌
+'episodeNumber' - episode number of the tconst in the TV series
+
+title.principals.tsv - Contains the principal cast/crew for titles
+'tconst', - tconst
+'ordering', - 
+'nconst', - 이름/사람에 대한 프라이머리키
+'category', - 해당 인물의 직업
+'job', - 특정 직업
+'characters' - 배역
+
+title.ratings.tsv
+'tconst', - tconst
+'averageRating', - 모든 평점 평균
+'numVotes' - 총 얻은 평점갯수
+
+name.basics.tsv
+'nconst' - 이름에 대한 프라이머리키
+'primaryName', - name by which the person is most often credited
+'birthYear', - 생일
+'deathYear', - 사망연도 (살아있으면 결측치 처리 (\N)
+'primaryProfession', - 해당 인물의 주요 직업(professions) 상위 3개
+'knownForTitles' - 해당 인물이 유명해진 영화
+
+
+
+
+
+
