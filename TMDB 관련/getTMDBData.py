@@ -6,6 +6,7 @@ payload = "{}"
 TMDBData = []
 
 # page 맥시멈 : 1000
+# 개봉일자가 신뢰도가 떨어진 영화가 많아서 현재까지 한국에서 개봉한 모든 영화를 일단 크롤링하는 코드를 작성했습니다.
 for idx in range(1000):
     mainUrl = "/3/discover/movie?page="
     mainUrl += str(idx+1) 
