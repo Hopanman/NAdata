@@ -1,37 +1,31 @@
 import http.client
 import json
-import time
 
-def check_rate_limit(r):
-    current_time = time.time()
-    if int(r.headers['X-RateLimit-Remaining']) <= 1:
-        while int(r.headers['X-RateLimit-Reset']) + 1 > time.time():
-            print('waiting...')
-            time.sleep(1)
 
 payload = "{}"
-
-
 TMDBData = []
 
 # page 맥시멈 : 1000
 for idx in range(1000):
     mainUrl = "/3/discover/movie?page="
     mainUrl += str(idx+1) 
-    mainUrl += "&include_video=false&include_adult=false&sort_by=popularity.desc&language=en-US&api_key=2b4a725a283b9fa435aca3507c61bae2"
+    mainUrl += "&include_video=true&include_adult=true&sort_by=original_title.asc&language=ko-KR&region=KR&api_key=2b4a725a283b9fa435aca3507c61bae2"
     
-    conn = http.client.HTTPSConnection("api.themoviedb.org")
-    conn.request("GET", mainUrl, payload)
+    try:
+        conn = http.client.HTTPSConnection("api.themoviedb.org")
+        conn.request("GET", mainUrl, payload)
+        main_res = conn.getresponse()
+        if main_res.getcode() == 200:
+            print('Connected!')
+            json_main = json.loads(main_res.read().decode('utf-8'))
+       
+    except Exception as e:
+        print('Access failed.', e)
+        continue
 
-    main_res = conn.getresponse()
-    main_data = main_res.read()
-    
-    decoded_main = main_data.decode("utf-8")
-    json_main = json.loads(decoded_main)
-#     print(json_main)
-#     print(type(json_main))
     movieList = json_main['results']
-#     print(movieList)
+    
+
  
     for onemovie in movieList:
 #         print(onemovie)
