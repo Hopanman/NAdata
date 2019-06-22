@@ -31,8 +31,6 @@ class NaverAPI:
         url='https://openapi.naver.com/v1/search/movie.json'
         url+='?query=%s'%(urllib.parse.quote(self.movieNm))
         url+='&display=%s'%(self.display)
-        url+='&yearfrom=%d'%(2010)
-        url+='&yearto=%d'%(2019)
         
         retData = self.get_request_url(url)
         
