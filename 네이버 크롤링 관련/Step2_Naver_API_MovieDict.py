@@ -34,9 +34,9 @@ class runClassNaverAPI:
 #         for idx in range(6000, 8000):
 #         for idx in range(8000, 10000):
 #         for idx in range(10000, 10465):
+            print('%d번째 영화 크롤링'%(idx+1))
             koficNm = self.dataframe.iloc[idx, 0]
             koficDr = self.dataframe.iloc[idx, 1]
-            koficDr = koficDr.split(',')
             # print(idx)
             # print(koficNm)
             # print(koficDr)
