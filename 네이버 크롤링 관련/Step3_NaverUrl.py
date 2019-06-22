@@ -27,7 +27,7 @@ class getBookExpt:
                     movieEnNm = naverDict['subtitle']
                     openYr = naverDict['pubDate']
                     movieDr = naverDict['director'].replace('<b>','').replace('</b>','')
-                    movieDr = movieDr.rstrip('|').split('|')                         
+                    movieDr = movieDr.rstrip('|').replace('|',',')                     
                     naverUrl = naverDict['link']                                            
                     response = urlopen(naverUrl)                                       
                     soup = BeautifulSoup(response, 'html.parser')
@@ -48,7 +48,7 @@ class getBookExpt:
                     naver_ex_pt = soup.select_one('span#interest_cnt_basic')
                     if naver_ex_pt != None:
                         naver_ex_pt = naver_ex_pt.get_text()
-                        naver_ex_pt = re.sub('[가-히]+','', naver_ex_pt)
+                        naver_ex_pt = re.sub('[가-힣]+','', naver_ex_pt)
                         naver_ex_pt = naver_ex_pt.replace(',', '')
                         naver_ex_pt = int(naver_ex_pt)                    
                         print('기대지수 : %s' % (naver_ex_pt))
