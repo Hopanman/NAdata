@@ -1,105 +1,261 @@
 import urllib.request
 import json
-import requests
-import pandas as pd
-from urllib import parse
+import datetime
 
-######################################################################################
-for idx in range(111):
-# 영화목록 확인가능 변수
-    url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json'
-    url += '?key=8ccfd7e4b86fa70f21da9b3bf8cfdc8e'
-    url += '&openStartDt=2010'
-    url += '&openEndDt=2019'
-    url += '&curPage='
-    url += str(idx+1)
-    url += '&itemPerPage=100'
-     
-    request = urllib.request.Request(url)
-    response = urllib.request.urlopen(request)
-    rescode = response.getcode()
-     
-    if(rescode == 200):
-        movieData = json.loads(response.read().decode('utf-8'))
-        print(movieData)
-        print('-'*40)
-    else:
-        print("Error code:"+rescode)
+
+class searchMovieList:
+    def __init__(self):
+        self.boxtype = 'searchMovieList'
+        
+    def toJson(self, result):
+        with open('C:/Users/DELL/eclipse-workspace/HomeTraining/Home/2010-2019movielist/{}-{}movielist{}.json'.format(self.openStartDt,self.openEndDt,self.curPage), 'w', encoding='utf-8') as file :
+            json.dump(result, file, ensure_ascii=False, indent= '\t')
+            
+    def getKOFIC_API_Result(self, boxtype, itemPerPage, curPage, openStartDt, openEndDt ):
+        self.url='http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/'+str(self.boxtype)+'.json'
+        self.boxtype=boxtype
+        self.openStartDt=openStartDt
+        self.openEndDt=openEndDt
+        self.curPage=curPage
+        self.itemPerPage=itemPerPage
+        
+        key='8044e419579414c45b252ed1e38c581d'
+        self.url+='?key=%s'%(key)
+        self.url+='&curPage=%s'%(self.curPage)
+        self.url+='&itemPerPage=%s'%(self.itemPerPage)
+        self.url+='&openStartDt=%s'%(self.openStartDt)
+        self.url+='&openEndDt=%s'%(self.openEndDt)
+        
+        retData = self.get_request_url(self.url)
+        
+        if(retData == None):
+            return None
+        else:
+            self.toJson(json.loads(retData))
+            print('{}년도부터 {}년보 _{} 영화리스트 정보가 저장되었습니다.'.format(self.openStartDt, self.openEndDt, self.curPage))
+            
+            
+    def get_request_url(self, url):
+        self.req = urllib.request.Request(self.url)
+        try:
+            response=urllib.request.urlopen(self.req)
+            if response.getcode()==200:
+                print('[%s] Url Request Success'%(datetime.datetime.now()))
+                return response.read().decode('utf-8')
+        except Exception as e:
+            print(e)
+            print('[%s] Url Request Success'%(datetime.datetime.now(),self.url))
+            return None
+        
+class searchMovieInfo(searchMovieList):
+    def __init__(self):
+        self.boxtype = 'searchMovieInfo'
+
+
+    def getKOFIC_API_Result(self, movieCd, idx):
+        self.url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/'+str(self.boxtype)+'.json'
+        self.movieCd=movieCd
+        self.idx = idx
          
-    moviedf = pd.DataFrame()
-    moviedf = moviedf.append(
-        {'movieCd':'', 'movieNm':'', 'openDt':'', 'peopleNm':'', 'showTm':'', 'watchGradeNm':'', 'companyNm':'', 'genreNm':''}, ignore_index=True)
-     
-    num = len(movieData['movieListResult']['movieList'])
-    for i in range(0, num):
-        moviedf.ix[i,"movieCd"] = movieData["movieListResult"]["movieList"][i]["movieCd"]
-        moviedf.ix[i,"movieNm"] = movieData["movieListResult"]["movieList"][i]["movieNm"]
-        moviedf.ix[i,"repNationNm"] = movieData["movieListResult"]["movieList"][i]["repNationNm"]
-        moviedf.ix[i,"openDt"] = movieData["movieListResult"]["movieList"][i]["openDt"]
-    
-#     print(moviedf)
-    
-    ######################################################################################
-    
-    for i in range(0, num):
-        url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json'
-        url += '?key=8ccfd7e4b86fa70f21da9b3bf8cfdc8e'
-        url += '&movieCd='
-        url += moviedf.ix[i, 'movieCd']
-     
-        request = urllib.request.Request(url)
-        response = urllib.request.urlopen(request)
-        rescode = response.getcode()
-      
-        if(rescode == 200):
-            movieData = json.loads(response.read().decode('utf-8'))
-            print(movieData)
-             
+        key = '8044e419579414c45b252ed1e38c581d'
+        self. url += '?key=%s'%(key)
+        self.url += '&movieCd=%s'%(self.movieCd)
+         
+        retData = self.get_request_url(self.url)
+         
+        if(retData == None):
+            return None 
         else:
-            print("Error code:"+rescode)
+            with open('C:/Users/DELL/eclipse-workspace/HomeTraining/Home/2010-2019movielist/2010-2019movieinfo_{}.json'.format(self.idx), 'w', encoding='utf-8') as file :
+                json.dump(json.loads(retData), file, ensure_ascii=False, indent= '\t')
+            print('영화리스트 정보가 저장되었습니다.')
      
-        req = requests.get(url)
-    #     print(req.json()['movieInfoResult']['movieInfo']['showTm'])
-        if req.json()['movieInfoResult'] != []:
-            moviedf.ix[i,"showTm"] = req.json()['movieInfoResult']['movieInfo']['showTm']
-            if req.json()['movieInfoResult']['movieInfo']['audits'] != []:
-                moviedf.ix[i,"watchGradeNm"] = req.json()['movieInfoResult']['movieInfo']['audits'][0]['watchGradeNm']
-            else:
-                moviedf.ix[i, "watchGradeNm"] = ''
+    def get_request_url(self, url):
+        self.req = urllib.request.Request(self.url)
+        try:
+            response=urllib.request.urlopen(self.req)
+            if response.getcode()==200:
+                print('[%s] Url Request Success'%(datetime.datetime.now()))
+                return response.read().decode('utf-8')
+        except Exception as e:
+            print(e)
+            print('[%s] Url Request Success'%(datetime.datetime.now(),self.url))
+            return None    
+     
         
+import pandas
+
+searchmovie = searchMovieList()
+totallist = []
+
+startmv = 100
+endmv = 125
+
+for idx in range(startmv, endmv):
+    searchmovie.getKOFIC_API_Result('searchMovieList', '100', str(idx+1), '2010', '2019')
+    myfile='C:/Users/DELL/eclipse-workspace/HomeTraining/Home/2010-2019movielist/2010-2019movielist{}.json'.format(str(idx+1))
+    rfile=open(myfile,'rt',encoding='utf-8')
+    rfile=rfile.read()
+    jsonData=json.loads(rfile)
+    movieListResult=jsonData['movieListResult']
+    # print(movieListResult)
+    movielist=movieListResult['movieList']
+#     print(movielist)
+    totallist.append(movielist)
+# print(len(movielist))
+# print(len(totallist))
+
+searchmovieinfo = searchMovieInfo()
+
+moviedata = []
+movienm = []
+movienmen = []
+moviecd = []
+opendt = []
+
+directornm = []
+directornmen = []
+showtm = []
+nations = []
+watchgrade = []
+company = []
+genre = []
+people_list = []
+topeople_list = []
+
+moviecnt = 0
+for movielist in totallist:
+    for onedata in movielist:
+        searchmovieinfo.getKOFIC_API_Result(onedata['movieCd'], (moviecnt+1))
+        
+        moviecd.append(onedata['movieCd'])
+        movienm.append(onedata['movieNm'])
+        movienmen.append(onedata['movieNmEn'])
+        opendt.append(onedata['openDt'])
+    
+        
+        myfile1='C:/Users/DELL/eclipse-workspace/HomeTraining/Home/2010-2019movielist/2010-2019movieinfo_{}.json'.format((moviecnt+1))
+        moviecnt += 1
+#         print(moviecnt)
+        rfile1=open(myfile1,'rt',encoding='utf-8')
+        rfile1=rfile1.read()
+        jsonData1=json.loads(rfile1)
+#         print(jsonData1)
+        if jsonData1['movieInfoResult']['movieInfo']['showTm'] != []:
+            showtm.append(jsonData1['movieInfoResult']['movieInfo']['showTm'])
+        else:
+            showtm.append(None)
+        if jsonData1['movieInfoResult']['movieInfo']['audits'] != []:
+            watchgrade.append(jsonData1['movieInfoResult']['movieInfo']['audits'][0]['watchGradeNm'])
+        else:
+            watchgrade.append(None)
             
-            for onecompany in range(len(req.json()['movieInfoResult']['movieInfo']['companys'])):
-                if req.json()['movieInfoResult']['movieInfo']['companys'][onecompany]['companyPartNm'] =='배급사':
-                    moviedf.ix[i,"companyNm"] = req.json()['movieInfoResult']['movieInfo']['companys'][onecompany]['companyNm']
-        #     print(len(req.json()['movieInfoResult']['movieInfo']['staffs']))
-        #     moviedf.ix[i, 'staffs'] = req.json()['movieInfoResult']['movieInfo']['staffs']
-        
-            genre_list = []
-            for onegenre in range(len(req.json()['movieInfoResult']['movieInfo']['genres'])):
-                genre_list.append(req.json()['movieInfoResult']['movieInfo']['genres'][onegenre]['genreNm'])
-            moviedf.ix[i, 'genreNm'] = genre_list
-        
-            name_list = []
-            role_list = []
+        if jsonData1['movieInfoResult']['movieInfo']['directors'] != []:
+            directornm.append(jsonData1['movieInfoResult']['movieInfo']['directors'][0]['peopleNm'])
+            directornmen.append(jsonData1['movieInfoResult']['movieInfo']['directors'][0]['peopleNmEn'])
+        else:
+            directornm.append(None)
+            directornmen.append(None)
             
-            for onepeople in range(len(req.json()['movieInfoResult']['movieInfo']['actors'])):
-                name_list.append(req.json()['movieInfoResult']['movieInfo']['actors'][onepeople]['peopleNm'])
-                role_list.append(req.json()['movieInfoResult']['movieInfo']['actors'][onepeople]['cast'])
-             
-            for onestaff in range(len(req.json()['movieInfoResult']['movieInfo']['staffs'])):
-                name_list.append(req.json()['movieInfoResult']['movieInfo']['staffs'][onestaff]['peopleNm'])
-                role_list.append(req.json()['movieInfoResult']['movieInfo']['staffs'][onestaff]['staffRoleNm'])
+        onegenre_list = []
+        if jsonData1['movieInfoResult']['movieInfo']['genres'] != []:
+            for onegenre in range(len(jsonData1['movieInfoResult']['movieInfo']['genres'])):
+                onegenre_list.append(jsonData1['movieInfoResult']['movieInfo']['genres'][onegenre]['genreNm'])
+            genre.append(onegenre_list)
+        else:
+            genre.append(None)
+            
+        onecompany_list = []
+        if jsonData1['movieInfoResult']['movieInfo']['companys'] != []:
+    #             print(jsonData1['movieInfoResult']['movieInfo']['companys'])
+            onecompany_list = []
+            for onecompany in range(len(jsonData1['movieInfoResult']['movieInfo']['companys'])):
+                if jsonData1['movieInfoResult']['movieInfo']['companys'][onecompany]['companyPartNm'] == '배급사':
+                    onecompany_list.append(jsonData1['movieInfoResult']['movieInfo']['companys'][onecompany]['companyNm'])
+            company.append(onecompany_list)
+        else:
+            company.append(None)
+        
+        onenation_list = []
+        for onenation in range(len(jsonData1['movieInfoResult']['movieInfo']['nations'])):
+            onenation_list.append(jsonData1['movieInfoResult']['movieInfo']['nations'][onenation]['nationNm'])
+        nations.append(onenation_list)
+        
+        name_list = []
+        role_list = []
+        people_list = []
+        
+        if jsonData1['movieInfoResult']['movieInfo']['actors'] != [] or jsonData1['movieInfoResult']['movieInfo']['staffs']  != []:
+            for onepeople in range(len(jsonData1['movieInfoResult']['movieInfo']['actors'])):
+                name_list.append(jsonData1['movieInfoResult']['movieInfo']['actors'][onepeople]['peopleNm'])
+                role_list.append(jsonData1['movieInfoResult']['movieInfo']['actors'][onepeople]['cast'])
+              
+            for onestaff in range(len(jsonData1['movieInfoResult']['movieInfo']['staffs'])):
+                name_list.append(jsonData1['movieInfoResult']['movieInfo']['staffs'][onestaff]['peopleNm'])
+                role_list.append(jsonData1['movieInfoResult']['movieInfo']['staffs'][onestaff]['staffRoleNm'])
             people_list = list(zip(name_list, role_list))
-        
+    #             print(people_list)
             
-            moviedf.ix[i, "peopleNm"] = people_list
         else:
-            moviedf.ix[i,["showTm", 'watchGradeNm', 'companyNm', 'genreNm', 'peopleNm']] = ''
+            people_list.append('notpeople')
             
-            
-    print(moviedf)
+        if 'notpeople' in people_list:
+            topeople_list.append(None)
+        else:
+            topeople_list.append(people_list)
+#         print(topeople_list)
+        
+#         for onecompany in range(len(jsonData1['movieInfoResult']['movieInfo']['companys'])):
+#             print(jsonData1['movieInfoResult']['movieInfo']['companys'][onecompany]['companyPartNm'])
+#             if jsonData1['movieInfoResult']['movieInfo']['companys'][onecompany]['companyPartNm'] =='배급사':
+#                 company.append(['movieInfoResult']['movieInfo']['companys'][onecompany]['companyNm'])
+# print(company)
+
+        
+#     url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json'
+#     url += '?key=8ccfd7e4b86fa70f21da9b3bf8cfdc8e'
+#     url += '&movieCd='
+#     url += onedata['movieCd']
+#     print(url)
     
-    filename = 'kobisapi_' + str(idx+1) +'.csv'
-     
-    moviedf.to_csv( filename, encoding = 'utf-8')
-    print(filename + '파일로 저장됨')
+
+#         print(onedata)
+# 
+# print(movienm)
+# print(movienmen)    
+# print(moviecd)
+# print(opendt)
+
+import pandas as pd
+
+moviedf = pd.DataFrame()
+moviedf = moviedf.append(
+    {'movieNm':'', 'movieNmEn':'', 'openDt':'', 'showTm':'', 'watchGradeNm':'', 'genreNm':'', 'companyNm':'', 
+     'nationNm':'', 'peopleNm':'', 'directorNm':'', 'directorNmEn':''}, ignore_index=True)
+
+num = len(moviecd)
+# print(num)
+for i in range(0, num):
+    moviedf.ix[i, 'movieNm'] = movienm[i]
+    moviedf.ix[i, 'movieNmEn'] = movienmen[i]
+    moviedf.ix[i, 'openDt'] = opendt[i]
+    moviedf.ix[i, 'directorNm'] = directornm[i]
+    moviedf.ix[i, 'directorNmEn'] = directornmen[i]
+    moviedf.ix[i, 'showTm'] = showtm[i]
+    moviedf.ix[i, 'watchGradeNm'] = watchgrade[i]
+    moviedf.ix[i, 'genreNm'] = genre[i]
+    moviedf.ix[i, 'companyNm'] = company[i]
+    moviedf.ix[i, 'nationNm'] = nations[i]
+    moviedf.ix[i, 'peopleNm'] = topeople_list[i]
+
+print(moviedf)
+
+movie_use = moviedf[ (moviedf.openDt >= '20100101') & (moviedf.openDt <= '201906090')]
+print(movie_use)
+
+filename = 'imsi05.csv'
+ 
+movie_use.to_csv( filename, encoding = 'utf-8')
+print(filename + '파일로 저장됨')
+         
+
