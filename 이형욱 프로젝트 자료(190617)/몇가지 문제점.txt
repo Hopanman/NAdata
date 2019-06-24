@@ -177,3 +177,14 @@ regExp='[<b>/]'
 re.sub으로 변환한 json list를 저장하고 후에 index()로 뽑아와서
 jsonlist[]식으로 파일불러옴.
 
+190624
+#15 칼럼 추가하기
+
+*df['수정 영화명']=processed_title_
+
+#컬럼 순서 수정
+
+*불러올때 원하는 컬럼순서로 데이터 프레임을 불러오고 변수에 저장
+*해당 변수를 csv파일로 저장
+
+#같은 행 삭제 - drop.duplicate
