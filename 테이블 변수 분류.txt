@@ -1,7 +1,7 @@
                                                                                    API
 
 <영진위> https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
-개봉일, 누적관객수, 영화명, 런타임, 제작국가, 장르, 관람등급, 영화사, 감독명
+개봉일, 누적관객수, 영화명, 런타임, 제작국가, 장르, 관람등급, 영화사(배급사), 감독명
 
 <TMDB> https://www.themoviedb.org/
 원언어, 예산, 배우, 스텝, 속편영화유무, 키워드
