@@ -198,3 +198,10 @@ jsonlist[]식으로 파일불러옴.
 
 cmd창 - 이클립스 경로로 이동
 eclipse -clearPersistedState 입력
+
+190625
+
+#데이터프레임 열 데이터타입 변환
+
+*df['A'].astype('float') 
+*df['B'].astype('int')
