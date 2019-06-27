@@ -205,3 +205,12 @@ eclipse -clearPersistedState 입력
 
 *df['A'].astype('float') 
 *df['B'].astype('int')
+
+190626
+
+#공각기동대 3d때문에 매치안됨
+#설행 도중에 _가 들어가서 그냥 설행으로만 인식
+
+###리스트에서 index()는 첫번째만 갖고옴
+
+*for idx in range(len(데이터)): 사용
