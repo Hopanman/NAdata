@@ -214,3 +214,31 @@ eclipse -clearPersistedState 입력
 ###리스트에서 index()는 첫번째만 갖고옴
 
 *for idx in range(len(데이터)): 사용
+
+190627
+
+#데이터 프레임에서 인덱스값 추출하기
+
+df.index.values
+
+df[df[a]>100].index.values
+
+###KMDB 크롤링
+
+Data 	- Result	- staff
+		- director - directorNm
+		  (리스트)
+		- Awards2
+		- Awards1
+		- title
+		- titleEng
+		- keywords
+		- plot
+
+titleEng - 영문명
+directorNm - 감독명
+keywords- 키워드
+plot - 줄거리
+Awards1-수상내역1
+Awards2-수상내역2
+
