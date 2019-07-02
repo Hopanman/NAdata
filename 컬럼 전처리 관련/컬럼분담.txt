@@ -1,0 +1,8 @@
+김지수
+-company&nation
+이형욱
+-genre&sp_lang
+정호진
+-텍스트처리확인
+박건우
+-배우
