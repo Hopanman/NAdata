@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1562045055224.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1721190887",
+    "id" : "EC3393C3",
+    "lastKnownWriteTime" : 1562060243,
+    "last_content_update" : 1562060243900,
+    "path" : "C:/Users/TJ/Desktop/movie_analysis/movie.R",
+    "project_path" : "movie.R",
+    "properties" : {
+        "cursorPosition" : "49,226",
+        "scrollLine" : "40",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
