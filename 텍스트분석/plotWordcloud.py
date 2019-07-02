@@ -53,6 +53,6 @@ plt.imshow(wordcloud)
 plt.title('Top keyword')
 plt.axis('off')
 plt.show()
-plt.savefig('D:/myworkspace/github/텍스트분석/plotWordcloud.png')
+plt.savefig('D:/myworkspace/github/텍스트분석/plotWordcloud.png', dpi=400, bbox_inches='tight')
   
 print('finished')
