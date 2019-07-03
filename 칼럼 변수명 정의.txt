@@ -1,0 +1,26 @@
+TITLE			영화제목
+DIRECTOR		감독 (문자열)
+OPEN_DT			개봉전체일자
+OPEN_YEAR		개봉연도
+OPEN_MONTH		개봉달
+OPEN_DAY		개봉날짜
+OPEN_WEEKDAY		개봉요일
+OPEN_QUARTER		개봉분기
+OPEN_WEEK		개봉주차
+SHOW_TM		러닝타임
+NATION_NM		제작국가 (문자열)
+COMPANY_NM		제작회사 (문자열)
+GENRE_NM		장르종류 (문자열)
+SP_LANG			spoken language (문자열)
+WATCH_GRADE_NM		관람등급 (문자열)
+ACTOR1			주연배우1 (문자열)
+ACTOR2			주연배우2 (문자열)
+BUDGET			예산
+SERIES			시리즈인지 여부
+AWARDS			수상 유무 
+NAVER_CMT_NN		네이버 개봉전 댓글갯수
+NAVER_PRE_EVAL		네이버 개봉전 평점
+NAVER_PRE_EVAL_MUL	네이버 개봉전 댓글갯수*네이버 개봉전 평점	
+NAVER_EX_PT		네이버 기대지수
+ORI_BOOK		원작도서 유무
+AUDI_ACC		전국관객수
