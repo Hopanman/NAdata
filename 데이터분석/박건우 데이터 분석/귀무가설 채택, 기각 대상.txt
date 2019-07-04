@@ -1,0 +1,23 @@
+귀무가설 채택
+
+watch_grade_nm : < 2.2e-16
+director : 0.0292
+open_dt : < 2.2e-16
+open_month : 1.11e-05
+open_weekday : < 2.2e-16
+open_quarter : 0.00302
+open_week : <2e-16
+nation_nm : 4.26e-05
+company_nm : <2e-16 
+genre_nm : <2e-16 
+sp_lang : <2e-16
+actor1 : 0.264
+actor2 : 3.23e-08
+series : <2e-16
+awards : <2e-16
+ori_book : 1.38e-13
+
+귀무가설 기각
+
+open_year : 0.888
+open_day : 0.974
