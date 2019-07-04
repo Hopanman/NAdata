@@ -8,6 +8,9 @@ library(VIM)
 library(lubridate)
 library(randomForest)
 library(lawstat)
+install.packages('varhandle')
+library(varhandle)
+
 
 getwd()
 movie <- read.csv('movie_regression.csv', na.strings = c(''))
@@ -166,7 +169,7 @@ kruskal.test(AUDI_ACC~NATION_NM_NUM, data=movie)
 
 table(movie$ORI_BOOK)
 
-movie %>% group_by(ACTOR2) %>% summarise(actor_n = n(), audi_median=median(AUDI_ACC), audi_mean=mean(AUDI_ACC)) %>% arrange(desc(actor_n)) %>% filter(!is.na(ACTOR2)) %>% head(20) 
+top20_actor <- movie %>% group_by(ACTOR1) %>% summarise(actor_n = n(), audi_median=median(AUDI_ACC), audi_mean=mean(AUDI_ACC)) %>% arrange(desc(actor_n)) %>% filter(!is.na(ACTOR1)) %>% head(20) 
 
 
 ggplot(top20_actor, aes(x=ACTOR1,y=audi_median,fill=ACTOR1)) + geom_bar(stat='identity') + scale_fill_viridis(discrete = T, option = 'E', begin = 1, end = 0) + scale_y_continuous(breaks=c(0,1000000,2000000,3000000,4000000,5000000), labels=c('0','백만명','이백만명','삼백만명','사백만명','오백만명'))  + theme_classic() + labs(title='주인공출연빈도 top20배우의 관객수 중앙값', x='배우', y='관객수 중앙값') + theme(plot.title=element_text(hjust=0.5, face='bold'), legend.position = 'none', axis.text.x = element_text(angle=90))
@@ -176,7 +179,7 @@ ggplot(top20_actor, aes(x=ACTOR1,y=audi_median,fill=ACTOR1)) + geom_bar(stat='id
 
 
 glimpse(movie)
-movie %>% group_by(COMPANY_NM) %>% summarise(cnt = n(), audi_median=median(AUDI_ACC), audi_mean=mean(AUDI_ACC)) %>% arrange(desc(cnt)) %>% filter(!is.na(COMPANY_NM)) %>% head(20)
+top10_company <- movie %>% group_by(COMPANY_NM) %>% summarise(cnt = n(), audi_median=median(AUDI_ACC), audi_mean=mean(AUDI_ACC)) %>% arrange(desc(cnt)) %>% filter(!is.na(COMPANY_NM)) %>% head(10)
 ggplot(top10_company, aes(x=COMPANY_NM,y=audi_median,fill=COMPANY_NM)) + geom_bar(stat='identity') + scale_fill_viridis(discrete = T, option = 'E', begin = 1, end = 0) + scale_y_continuous(breaks=c(0,200000,400000,600000,800000), labels=c('0','20만명','40만명','60만명','80만명'))  + theme_classic() + labs(title='빈도수 top10배급사의 관객수 중앙값', x='배급사', y='관객수 중앙값') + theme(plot.title=element_text(hjust=0.5, face='bold'), legend.position = 'none') + coord_flip()
 
 
@@ -191,7 +194,7 @@ ggplot(filter(movie, !is.na(PRI_GENRE_NM)), aes(x=PRI_GENRE_NM, y=log(AUDI_ACC),
 
 
 
-movie %>% group_by(NATION_NM) %>% summarise(cnt = n(), audi_median=median(AUDI_ACC), audi_mean=mean(AUDI_ACC)) %>% arrange(desc(cnt)) %>% filter(!is.na(NATION_NM)) %>% head(20)
+top20_nation <- movie %>% group_by(NATION_NM) %>% summarise(cnt = n(), audi_median=median(AUDI_ACC), audi_mean=mean(AUDI_ACC)) %>% arrange(desc(cnt)) %>% filter(!is.na(NATION_NM)) %>% head(20)
 ggplot(top20_nation, aes(x=NATION_NM,y=audi_median,fill=NATION_NM)) + geom_bar(stat='identity') + scale_fill_viridis(discrete = T, option = 'E', begin = 1, end = 0)  + coord_flip() + scale_y_continuous(breaks=c(0,20000,40000,60000), labels=c('0','2만명','4만명','6만명'))  + theme_classic() + labs(title='빈도수 top20제작국가의 관객수 중앙값', x='제작국가', y='관객수 중앙값') + theme(plot.title=element_text(hjust=0.5, face='bold'), legend.position = 'none')
 
 
@@ -208,13 +211,44 @@ glimpse(movie)
 ggplot(filter(movie, !is.na(AWARDS)), aes(x=AWARDS, y=AUDI_ACC, fill=AWARDS)) + stat_summary_bin(fun.y = median, geom='bar') + scale_fill_viridis(discrete = T, option = 'E', begin = 1, end = 0) + scale_y_continuous(breaks=c(0,10000,20000), labels=c('0','만명','2만명')) + scale_x_discrete(breaks=c(0,1), labels=c('비수상','수상')) + theme_classic() + labs(title='개봉전 수상여부에 따른 관객수 중앙값', x='수상여부', y='관객수 중앙값') + theme(plot.title=element_text(hjust=0.5, face='bold'), legend.position = 'none')
 
 
-table(movie$PRI_GENRE_NM)
 
-movie$NATION_NM_NUM <- factor(movie$NATION_NM_NUM)
-movie$COMPANY_NM_NUM <- factor(movie$COMPANY_NM_NUM)
-movie$GENRE_NM_NUM <- factor(movie$GENRE_NM_NUM)
-movie$SP_LANG_NUM <- factor(movie$SP_LANG_NUM)
+
 glimpse(movie)
 
+train <- subset(movie, select=c(DIRECTOR,OPEN_MONTH,	OPEN_QUARTER,OPEN_WEEK,SHOW_TM,NATION_NM,	COMPANY_NM,	PRI_GENRE_NM,	SP_LANG,	WATCH_GRADE_NM,	ACTOR1,	ACTOR2,	SERIES,	NAVER_CMT_NN,	NAVER_EX_PT,	ORI_BOOK,	AUDI_ACC))
+
+#결측치 정보 확인
+aggr(train, sortVars=T,prop=F, cex.axis=0.60, numbers=T)
+aggr
+glimpse(train)
+
+table(movie$SP_LANG_NUM)
+table(train$SP_LANG)
+
+# Median VS Mean; 정규분포를 따르지 않을 때는 Median을 쓴다.
+summary(train)
+ggplot(train,aes(x=NAVER_EX_PT)) + geom_histogram()
+ggplot(train,aes(x=NAVER_CMT_NN)) + geom_histogram()
+ggplot(train,aes(x=SHOW_TM)) + geom_histogram()
+shapiro.test(train$NAVER_EX_PT)
+shapiro.test(train$NAVER_CMT_NN)
+shapiro.test(train$SHOW_TM)
 
 
+
+
+
+train_omit <- na.omit(train)
+glimpse(train_omit)
+summary(train_omit)
+train_omit <- mutate(train_omit, NAVER_CMT_NN = log10(NAVER_CMT_NN+1), NAVER_EX_PT = log10(NAVER_EX_PT+1), AUDI_ACC = log10(AUDI_ACC))
+
+
+#https://thebook.io/006723/ch09/02/01/03/
+set.seed(222)
+randomForest(AUDI_ACC ~ ., data=train_omit, ntree=501, replace=T, nodesize=9, importance=T)
+
+
+
+unfactor(train_omit$DIRECTOR)
+as.numeric(train_omit$DIRECTOR)
