@@ -1,0 +1,212 @@
+                 Df    Sum Sq   Mean Sq F value Pr(>F)    
+WATCH_GRADE_NM    3 1.614e+14 5.379e+13    31.7 <2e-16 ***
+Residuals      4209 7.142e+15 1.697e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> plot(aov_test)
+> bartlett.test(AUDI_ACC ~ WATCH_GRADE_NM, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by WATCH_GRADE_NM
+Bartlett's K-squared = 1269.9, df = 3, p-value < 2.2e-16
+
+관람등급에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)  
+DIRECTOR    2912 5.187e+15 1.781e+12   1.094 0.0292 *
+Residuals   1300 2.116e+15 1.628e+12                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+감독에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)    
+OPEN_DT      892 2.404e+15 2.695e+12   1.826 <2e-16 ***
+Residuals   3320 4.900e+15 1.476e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+개봉날짜에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)
+OPEN_YEAR      9 7.512e+12 8.347e+11   0.481  0.888
+Residuals   4203 7.296e+15 1.736e+12               
+> bartlett.test(AUDI_ACC ~ OPEN_YEAR, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by OPEN_YEAR
+Bartlett's K-squared = 127.38, df = 9, p-value < 2.2e-16
+
+개봉연도에 따른 관객수의 차이가 없다.
+
+              Df    Sum Sq   Mean Sq F value   Pr(>F)    
+OPEN_MONTH    11 7.419e+13 6.744e+12   3.919 1.11e-05 ***
+Residuals   4201 7.229e+15 1.721e+12                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> bartlett.test(AUDI_ACC ~ OPEN_MONTH, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by OPEN_MONTH
+Bartlett's K-squared = 702.43, df = 11, p-value < 2.2e-16
+
+개봉월에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)
+OPEN_DAY      30 2.935e+13 9.782e+11   0.562  0.974
+Residuals   4182 7.274e+15 1.739e+12               
+> bartlett.test(AUDI_ACC ~ OPEN_DAY, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by OPEN_DAY
+Bartlett's K-squared = 576.41, df = 30, p-value < 2.2e-16
+
+개봉일자에 따른 관객수의 차이가 없다.
+
+               Df    Sum Sq   Mean Sq F value Pr(>F)    
+OPEN_WEEKDAY    6 5.146e+14 8.577e+13   53.14 <2e-16 ***
+Residuals    4206 6.789e+15 1.614e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> bartlett.test(AUDI_ACC ~ OPEN_WEEKDAY, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by OPEN_WEEKDAY
+Bartlett's K-squared = 2019.5, df = 6, p-value < 2.2e-16
+
+개봉요일에 따른 관객수의 차이가 있다.
+
+               Df    Sum Sq   Mean Sq F value  Pr(>F)   
+OPEN_QUARTER    3 2.410e+13 8.034e+12   4.645 0.00302 **
+Residuals    4209 7.279e+15 1.729e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> bartlett.test(AUDI_ACC ~ OPEN_QUARTER, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by OPEN_QUARTER
+Bartlett's K-squared = 211.03, df = 3, p-value < 2.2e-16
+
+개봉분기에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)    
+OPEN_WEEK     52 3.190e+14 6.135e+12   3.654 <2e-16 ***
+Residuals   4160 6.984e+15 1.679e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> bartlett.test(AUDI_ACC ~ OPEN_WEEK, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by OPEN_WEEK
+Bartlett's K-squared = 2306.3, df = 52, p-value < 2.2e-16
+
+개봉주차에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value   Pr(>F)    
+NATION_NM    332 7.581e+14 2.283e+12   1.354 4.26e-05 ***
+Residuals   3880 6.545e+15 1.687e+12                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+제작국가에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)    
+COMPANY_NM   475 1.989e+15 4.188e+12   2.945 <2e-16 ***
+Residuals   3737 5.314e+15 1.422e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+배급사에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)    
+GENRE_NM     329 1.258e+15 3.825e+12   2.457 <2e-16 ***
+Residuals   3883 6.045e+15 1.557e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+장르에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)    
+SP_LANG      186 1.762e+15 9.475e+12   6.884 <2e-16 ***
+Residuals   4026 5.541e+15 1.376e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+원언어에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)    
+SERIES         1 2.725e+14 2.725e+14   95.01 <2e-16 ***
+Residuals   2223 6.376e+15 2.868e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+1988 observations deleted due to missingness
+> bartlett.test(AUDI_ACC ~ SERIES, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by SERIES
+Bartlett's K-squared = 73.987, df = 1, p-value < 2.2e-16
+
+속편유무에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value   Pr(>F)    
+ORI_BOOK       1 9.479e+13 9.479e+13   55.11 1.38e-13 ***
+Residuals   4188 7.204e+15 1.720e+12                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+23 observations deleted due to missingness
+> bartlett.test(AUDI_ACC ~ ORI_BOOK, data = data)
+
+
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by ORI_BOOK
+Bartlett's K-squared = 350.92, df = 1, p-value < 2.2e-16
+
+원작도서에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)    
+AWARDS         1 2.891e+14 2.891e+14   173.6 <2e-16 ***
+Residuals   4211 7.014e+15 1.666e+12                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> bartlett.test(AUDI_ACC ~ AWARDS, data = data)
+
+	Bartlett test of homogeneity of variances
+
+data:  AUDI_ACC by AWARDS
+Bartlett's K-squared = 1488.7, df = 1, p-value < 2.2e-16
+
+수상내역에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value Pr(>F)
+ACTOR1      2275 3.995e+15 1.756e+12   1.028  0.264
+Residuals   1937 3.308e+15 1.708e+12            
+
+주인공1에 따른 관객수의 차이가 있다.
+
+              Df    Sum Sq   Mean Sq F value   Pr(>F)    
+ACTOR2      2544 4.824e+15 1.896e+12   1.275 3.23e-08 ***
+Residuals   1668 2.480e+15 1.487e+12                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+주인공2에 따른 관객수의 차이가 있다.
+
+
+
+
+
+
+
+
+
