@@ -25,3 +25,5 @@ NAVER_PRE_EVAL_MUL	네이버 개봉전 댓글갯수*네이버 개봉전 평점
 NAVER_EX_PT		네이버 기대지수		비율
 ORI_BOOK		원작도서 유무		명목
 AUDI_ACC		전국관객수		비율
+
+

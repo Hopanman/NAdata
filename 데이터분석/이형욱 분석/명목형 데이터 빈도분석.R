@@ -26,11 +26,19 @@ mydf$ORI_BOOK<-as.factor(mydf$ORI_BOOK)
 
 tablea<-table(mydf$DIRECTOR)
 
-tablea<-(tablea)
+tablea<-data.frame(tablea)
 
-tablea<-sort(tablea,decreasing = T)
+library(plyr)
 
-tablea<-tablea[10,]
+tablea<-arrange(tablea,Var1,desc(Freq))
+
+# tablea<-tablea[1:10,]
+# 
+names(tablea)
+
+tablea[1:10,]
+
+str(tablea)
 
 mode(tablea)
 
