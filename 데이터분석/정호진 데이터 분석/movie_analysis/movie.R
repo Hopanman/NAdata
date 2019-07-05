@@ -8,7 +8,6 @@ library(VIM)
 library(lubridate)
 library(randomForest)
 library(lawstat)
-install.packages('varhandle')
 library(varhandle)
 
 
@@ -218,7 +217,7 @@ glimpse(movie)
 train <- subset(movie, select=c(DIRECTOR,OPEN_MONTH,	OPEN_QUARTER,OPEN_WEEK,SHOW_TM,NATION_NM,	COMPANY_NM,	PRI_GENRE_NM,	SP_LANG,	WATCH_GRADE_NM,	ACTOR1,	ACTOR2,	SERIES,	NAVER_CMT_NN,	NAVER_EX_PT,	ORI_BOOK,	AUDI_ACC))
 
 #결측치 정보 확인
-aggr(train, sortVars=T,prop=F, cex.axis=0.60, numbers=T)
+aggr(train, sortVars=T,prop=F, cex.axis=0.45, numbers=T)
 aggr
 glimpse(train)
 
@@ -252,3 +251,12 @@ randomForest(AUDI_ACC ~ ., data=train_omit, ntree=501, replace=T, nodesize=9, im
 
 unfactor(train_omit$DIRECTOR)
 as.numeric(train_omit$DIRECTOR)
+
+
+
+
+nlevels(train$SP_LANG)
+table(movie$SP_LANG_NUM)
+
+
+
