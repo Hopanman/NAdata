@@ -1,0 +1,23 @@
+결측치 : 
+
+결측치 0으로 대체요망
+SERIES 1988
+
+
+
+칼럼 제거 요망
+ACTOR1, 2 278, 493
+DIRECTOR 24
+
+
+결측치 열제거 요망
+
+NAVER_CMT_NN 23
+NAVER_EX_PT 23
+ORI_BOOK 23
+COMPANY_NM 4
+SHOW_TM 2
+PRI_GENRE_NM 1
+
+?
+SP_LANG 2022
