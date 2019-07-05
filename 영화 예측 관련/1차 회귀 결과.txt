@@ -1,0 +1,8 @@
+Call:
+ randomForest(formula = AUDI_ACC ~ ., data = real_train, ntree = 501,      replace = TRUE, nodesize = 9, importance = TRUE) 
+               Type of random forest: regression
+                     Number of trees: 501
+No. of variables tried at each split: 3
+
+          Mean of squared residuals: 0.3194209
+                    % Var explained: 69.96
