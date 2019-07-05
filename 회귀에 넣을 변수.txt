@@ -21,6 +21,29 @@ SERIES 1988
 
 NATION_NM 대표국가 하나만 뽑는다
 
+미국
+한국                   
+일본                 
+프랑스 
+영국                   
+중국                   
+독일                 
+스페인                
+캐나다                   
+홍콩               
+이탈리아                 
+러시아              
+덴마크                   
+호주                   
+인도                   
+대만              
+스웨덴                 
+벨기에               
+노르웨이               
+아일랜드 
+
+나머지는 기타
+
 COMPANY_NM 
 씨제이이앤엠(주) 
 롯데쇼핑㈜롯데엔터테인먼트 
@@ -32,10 +55,11 @@ COMPANY_NM
 워너브러더스 코리아(주) 
 와이드 릴리즈(주) 
 (주)박수엔터테인먼트 
-                                 
+
+나머지는 기타                       
 
 
 <최종>
-OPEN_MONTH	OPEN_QUARTER	SHOW_TM	NATION_NM	COMPANY_NM	PRI_GENRE_NM	WATCH_GRADE_NM    SERIES 	NAVER_CMT_NN	NAVER_EX_PT	ORI_BOOK	AUDI_ACC
+OPEN_MONTH	OPEN_QUARTER	SHOW_TM	NATION_NM	TOP_COMPANY_NM       PRI_GENRE_NM	WATCH_GRADE_NM    SERIES 	NAVER_CMT_NN	NAVER_EX_PT	ORI_BOOK	AUDI_ACC
 
                                                                

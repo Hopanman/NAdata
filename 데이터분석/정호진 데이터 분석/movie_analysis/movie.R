@@ -180,7 +180,7 @@ ggplot(top20_actor, aes(x=ACTOR1,y=audi_median,fill=ACTOR1)) + geom_bar(stat='id
 glimpse(movie)
 top10_company <- movie %>% group_by(COMPANY_NM) %>% summarise(cnt = n(), audi_median=median(AUDI_ACC), audi_mean=mean(AUDI_ACC)) %>% arrange(desc(cnt)) %>% filter(!is.na(COMPANY_NM)) %>% head(10)
 ggplot(top10_company, aes(x=COMPANY_NM,y=audi_median,fill=COMPANY_NM)) + geom_bar(stat='identity') + scale_fill_viridis(discrete = T, option = 'E', begin = 1, end = 0) + scale_y_continuous(breaks=c(0,200000,400000,600000,800000), labels=c('0','20만명','40만명','60만명','80만명'))  + theme_classic() + labs(title='빈도수 top10배급사의 관객수 중앙값', x='배급사', y='관객수 중앙값') + theme(plot.title=element_text(hjust=0.5, face='bold'), legend.position = 'none') + coord_flip()
-
+top10_company
 
 table(movie$PRI_GENRE_NM)
 glimpse(movie)
@@ -214,7 +214,7 @@ ggplot(filter(movie, !is.na(AWARDS)), aes(x=AWARDS, y=AUDI_ACC, fill=AWARDS)) + 
 
 glimpse(movie)
 
-train <- subset(movie, select=c(DIRECTOR,OPEN_MONTH,	OPEN_QUARTER,OPEN_WEEK,SHOW_TM,NATION_NM,	COMPANY_NM,	PRI_GENRE_NM,	SP_LANG,	WATCH_GRADE_NM,	ACTOR1,	ACTOR2,	SERIES,	NAVER_CMT_NN,	NAVER_EX_PT,	ORI_BOOK,	AUDI_ACC))
+train <- subset(movie, select=c(TITLE,DIRECTOR,OPEN_DT,OPEN_MONTH,	OPEN_QUARTER,OPEN_WEEK,SHOW_TM,NATION_NM,	COMPANY_NM,	PRI_GENRE_NM,	SP_LANG,	WATCH_GRADE_NM,	ACTOR1,	ACTOR2,	SERIES,	NAVER_CMT_NN,	NAVER_EX_PT,	ORI_BOOK,	AUDI_ACC))
 
 #결측치 정보 확인
 aggr(train, sortVars=T,prop=F, cex.axis=0.45, numbers=T)
@@ -236,27 +236,89 @@ shapiro.test(train$SHOW_TM)
 
 
 
-
+#훈련 테스트
 train_omit <- na.omit(train)
 glimpse(train_omit)
 summary(train_omit)
 train_omit <- mutate(train_omit, NAVER_CMT_NN = log10(NAVER_CMT_NN+1), NAVER_EX_PT = log10(NAVER_EX_PT+1), AUDI_ACC = log10(AUDI_ACC))
-
-
 #https://thebook.io/006723/ch09/02/01/03/
 set.seed(222)
 randomForest(AUDI_ACC ~ ., data=train_omit, ntree=501, replace=T, nodesize=9, importance=T)
-
-
-
-unfactor(train_omit$DIRECTOR)
-as.numeric(train_omit$DIRECTOR)
+rm(train_omit)
 
 
 
 
-nlevels(train$SP_LANG)
-table(movie$SP_LANG_NUM)
+train <- subset(train, select=c(TITLE,OPEN_DT, OPEN_MONTH,OPEN_QUARTER,SHOW_TM,NATION_NM,COMPANY_NM,PRI_GENRE_NM,WATCH_GRADE_NM,SERIES,NAVER_CMT_NN,NAVER_EX_PT,ORI_BOOK,AUDI_ACC))
+aggr(train,sortVars=T, prop=F, cex.axis=0.45, numbers=T)
+train$SERIES[is.na(train$SERIES)] <- 0
+train <- na.omit(train)
+
+summary(train)
 
 
+train$TOP_COMPANY_NM[train$COMPANY_NM=='씨제이이앤엠(주)'] <- '씨제이이앤엠(주)'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='롯데쇼핑㈜롯데엔터테인먼트'] <- '롯데쇼핑㈜롯데엔터테인먼트'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='유니버설픽쳐스인터내셔널 코리아(유)'] <- '유니버설픽쳐스인터내셔널 코리아(유)'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='(주)넥스트엔터테인먼트월드(NEW)'] <- '(주)넥스트엔터테인먼트월드(NEW)'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='(주)팝엔터테인먼트'] <- '(주)팝엔터테인먼트'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='(주)영화사 진진'] <- '(주)영화사 진진'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='이십세기폭스코리아(주)'] <- '이십세기폭스코리아(주)'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='워너브러더스 코리아(주)'] <- '워너브러더스 코리아(주)'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='와이드 릴리즈(주)'] <- '와이드 릴리즈(주)'
+train$TOP_COMPANY_NM[train$COMPANY_NM=='(주)박수엔터테인먼트'] <- '(주)박수엔터테인먼트'
+train$TOP_COMPANY_NM[is.na(train$TOP_COMPANY_NM)] <- '기타'
 
+glimpse(train)
+train$TOP_COMPANY_NM <- factor(train$TOP_COMPANY_NM)
+
+train <- train[-7]
+
+# write.csv(train, 'imsi.csv',row.names = F, fileEncoding = 'cp949')
+
+train <- read.csv('train.csv')
+
+train
+
+sort(table(train$PRI_NATION_NM),decreasing = T)
+
+glimpse(train)
+
+train$OPEN_MONTH <- factor(train$OPEN_MONTH)
+train$OPEN_QUARTER <- factor(train$OPEN_QUARTER)
+train$SERIES <- factor(train$SERIES)
+train$ORI_BOOK <- factor(train$ORI_BOOK)
+
+train$NATION_NM[train$PRI_NATION_NM=='미국'] <- '미국'
+train$NATION_NM[train$PRI_NATION_NM=='한국'] <- '한국'
+train$NATION_NM[train$PRI_NATION_NM=='일본'] <- '일본'
+train$NATION_NM[train$PRI_NATION_NM=='프랑스'] <- '프랑스'
+train$NATION_NM[train$PRI_NATION_NM=='영국'] <- '영국'
+train$NATION_NM[train$PRI_NATION_NM=='중국'] <- '중국'
+train$NATION_NM[train$PRI_NATION_NM=='독일'] <- '독일'
+train$NATION_NM[train$PRI_NATION_NM=='스페인'] <- '스페인'
+train$NATION_NM[train$PRI_NATION_NM=='캐나다'] <- '캐나다'
+train$NATION_NM[train$PRI_NATION_NM=='홍콩'] <- '홍콩'
+train$NATION_NM[train$PRI_NATION_NM=='이탈리아'] <- '이탈리아'
+train$NATION_NM[train$PRI_NATION_NM=='러시아'] <- '러시아'
+train$NATION_NM[train$PRI_NATION_NM=='덴마크'] <- '덴마크'
+train$NATION_NM[train$PRI_NATION_NM=='호주'] <- '호주'
+train$NATION_NM[train$PRI_NATION_NM=='인도'] <- '인도'
+train$NATION_NM[train$PRI_NATION_NM=='대만'] <- '대만'
+train$NATION_NM[train$PRI_NATION_NM=='스웨덴'] <- '스웨덴'
+train$NATION_NM[train$PRI_NATION_NM=='벨기에'] <- '벨기에'
+train$NATION_NM[train$PRI_NATION_NM=='노르웨이'] <- '노르웨이'
+train$NATION_NM[train$PRI_NATION_NM=='아일랜드'] <- '아일랜드'
+train$NATION_NM[is.na(train$NATION_NM)] <- '기타'
+
+train$NATION_NM <- factor(train$NATION_NM)
+
+glimpse(train)
+
+train <- subset(train, select = c(TITLE,OPEN_DT,OPEN_MONTH,OPEN_QUARTER,SHOW_TM,NATION_NM,TOP_COMPANY_NM,PRI_GENRE_NM,	WATCH_GRADE_NM,SERIES,NAVER_CMT_NN,NAVER_EX_PT,ORI_BOOK,AUDI_ACC))
+
+write.csv(train,'train.csv',row.names = F, fileEncoding = 'cp949')
+
+train <- train[-c(1,2)]
+
+write.csv(train,'train_regression.csv',row.names = F, fileEncoding = 'cp949')
