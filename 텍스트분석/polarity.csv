@@ -1,4 +1,4 @@
-ngram,freq,COMP,NEG,NEUT,None,POS,max.value,max.prop
+﻿ngram,freq,COMP,NEG,NEUT,None,POS,max.value,max.prop
 가*/JKS,1,0,0,0,0,1,POS,1
 가*/JKS;있/VV,1,0,0,0,0,1,POS,1
 가*/JKS;있/VV;었/EP,1,0,0,0,0,1,POS,1
