@@ -1,0 +1,22 @@
+Random Forest 
+
+4183 samples
+   9 predictor
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 4183, 4183, 4183, 4183, 4183, 4183, ... 
+Resampling results across tuning parameters:
+
+  mtry  splitrule   RMSE      Rsquared   MAE      
+   2    variance    1.640524  0.6823453  1.3653299
+   2    extratrees  1.776226  0.6338575  1.4843783
+  41    variance    1.287365  0.7078443  1.0034587
+  41    extratrees  1.243131  0.7281128  0.9686383
+  80    variance    1.320637  0.6919985  1.0258566
+  80    extratrees  1.254847  0.7223490  0.9783802
+
+Tuning parameter 'min.node.size' was held constant at a value of 5
+RMSE was used to select the optimal model using the smallest value.
+The final values used for the model were mtry = 41, splitrule
+ = extratrees and min.node.size = 5.
