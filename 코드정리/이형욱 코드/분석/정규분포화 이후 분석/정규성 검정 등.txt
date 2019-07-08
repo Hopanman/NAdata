@@ -1,0 +1,11 @@
+# 전국관객수 분포가 정규분포에 따르는지 여부
+
+AUDI_ACC
+샤피로-윌크 검정(shapiro.test() ) 결과 p-value <2.2e-16이므로 정규 분포를 따르고 있지 않다.
+
+AUDI_ACC_log
+샤피로-윌크 검정(shapiro.test() ) 결과 p-value =1.228e-08이므로 정규 분포를 따르고 있다.
+
+AUDI_ACC_sqrt
+샤피로-윌크 검정(shapiro.test() ) 결과 p-value <2.2e-16이므로 정규 분포를 따르고 있지 않다.
+
