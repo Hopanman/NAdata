@@ -16,14 +16,32 @@ ________________________________________________________________________________
 
 2. 분석
 
-                                  ( 추가 예정 )
+   1) code(폴더)
+      - plotWordcloud.R : 줄거리의 wordcloud 코드
+      - polarityAnalysis.R : 사전댓글의 감성사전 분석 코드
 
+   2) data(폴더)
+      - cmtScore_audiAcc.csv : 사전 댓글의 감성 점수 및 누적 관객수 데이터
+      - polarity.csv : 감성사전 데이터
+
+   2) result(폴더)
+      - plotWordcloud 결과.txt : 줄거리 내 단어의 빈도수 상위 100위 출력 내용
+      - plotWordcloud.png : 줄거리 내 단어의 빈도수 상위 100위 wordcloud
+      - 감성 점수별 누적 관객수(로그).png : 감성 점수별 누적 관객수(로그) 그래프
+      - 감성 점수별 누적 관객수.png : 감성 점수별 누적 관객수 그래프
+      - 감성점수 - 누적 관객수 corrplot(kendall).png : 감성 점수-누적관객수 상관행렬 그래프(kendall)
+      - 감성점수 - 누적 관객수 corrplot(pearson).png : 감성 점수-누적관객수 상관행렬 그래프(pearson)
+      - 감성점수 - 누적 관객수 corrplot(spearman).png : 감성 점수-누적관객수 상관행렬 그래프(spearman)
+      - 감성점수 - 사전 평점 corrplot(kendall).png : 감성 점수-사전 평점 상관행렬 그래프(kendall).
+      - 감성점수 - 사전 평점 corrplot(pearson).png : 감성 점수-사전 평점 상관행렬 그래프(pearson)
+      - 감성점수 - 사전 평점 corrplot(spearman).png : 감성 점수-사전 평점 상관행렬 그래프(spearman)
 
 __________________________________________________________________________________
 
 3. 회귀 
    1) code(폴더)
       - caret_randomforest.R : caret 회귀 코드
+      - caret_randomforest_addCmtscore.R : caret 회귀 코드(감성 점수 포함)
       - random_forest.R : random forest 회귀 코드
 
    2) data(폴더)
@@ -36,6 +54,11 @@ ________________________________________________________________________________
          * caretResult.csv : 훈련 결과
          * rfcr.fit.txt : rfcr.fit 출력
          * summary_rfcr.fit.txt : summary(rfcr.fit) 출력
+
+      - caretResult_Cmtscore(폴더) : caret 패키지 사용(감성 점수 포함)
+         * caretResult_Cmtscore.csv : 훈련 결과(감성 점수 포함)
+         * rfcr_addCmtscore.fit.txt : rfcr.fit 출력(감성 점수 포함)
+         * summary_rfcr.fit_addCmtscore.txt : summary(rfcr.fit) 출력(감성 점수 포함)
 
       - randomForestResult(폴더) : random forest 방식 사용
          * randomForest_predict.csv : 예측 결과
