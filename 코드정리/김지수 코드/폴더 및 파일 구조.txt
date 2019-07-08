@@ -1,0 +1,45 @@
+1. 수집_TMDB
+
+   1) code(폴더)
+      - getTMDBData.py : TMDB 영화 수집 코드 
+      - TMDB_Join.py : 영진위-TMDB 조인 코드
+
+   2) data(폴더)
+      - koapitotal.csv : 영진위 수집 영화 파일
+      - TMDB_alltrue_rename.csv : TMDB 수집 영화 파일
+
+   2) result(폴더)
+      - Kofic_TMDB_innerJoin_movie_director.csv : 영진위-TMDB 겹치는 영화
+      - Kofic_TMDB_notJoin_movie_director.csv : 영진위-TMDB 안 겹치는 영화
+
+__________________________________________________________________________________
+
+2. 분석
+
+                                  ( 추가 예정 )
+
+
+__________________________________________________________________________________
+
+3. 회귀 
+   1) code(폴더)
+      - caret_randomforest.R : caret 회귀 코드
+      - random_forest.R : random forest 회귀 코드
+
+   2) data(폴더)
+      - test.csv : 예측 데이터
+      - train_regression(2차).csv : 훈련 데이터
+
+   3) result(폴더)
+      - caretResult(폴더) : caret 패키지 사용
+         * caret_predict.csv : 예측 결과
+         * caretResult.csv : 훈련 결과
+         * rfcr.fit.txt : rfcr.fit 출력
+         * summary_rfcr.fit.txt : summary(rfcr.fit) 출력
+
+      - randomForestResult(폴더) : random forest 방식 사용
+         * randomForest_predict.csv : 예측 결과
+         * randomForestResult.csv : 훈련 결과
+         * rf.fit.txt : rf.fit 출력
+         * summary_rf.fit.txt : summary(rf.fit) 출력
+         * importance_rf.fit.txt : importance(rf.fit) 출력
