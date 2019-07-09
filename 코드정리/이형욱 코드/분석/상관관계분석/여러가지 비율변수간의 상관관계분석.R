@@ -16,9 +16,11 @@ mydf
 
 mydf<-mydf%>%filter(!is.na(SHOW_TM) & !is.na(BUDGET)& !is.na(NAVER_CMT_NN)& !is.na(NAVER_PRE_EVAL)& !is.na(NAVER_EX_PT)& !is.na(AUDI_ACC))
 
-mydf
+mydf<-transform(mydf,NAVER_PRE_EVAL_MUL=NAVER_CMT_NN*NAVER_PRE_EVAL)
 
 result<-cor(mydf)
+
+str(mydf)
 
 #시각화
 # install.packages('corrplot')
