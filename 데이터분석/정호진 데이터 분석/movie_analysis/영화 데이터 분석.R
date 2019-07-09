@@ -324,3 +324,9 @@ train <- train[-c(1,2)]
 
 write.csv(train,'train_regression.csv',row.names = F, fileEncoding = 'cp949')
 
+
+glimpse(movie)
+corrplot.mixed(
+  corr = cor(movie[c('AUDI_ACC','SHOW_TM', 'BUDGET', 'NAVER_CMT_NN', 'NAVER_PRE_EVAL', 'NAVER_PRE_EVAL_MUL','NAVER_EX_PT')], use = 'complete.obs'), 
+  tl.col = "red",  
+  upper = "ellipse", tl.pos = "lt", mar=c(0,0,0,0)) 

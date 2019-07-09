@@ -1,4 +1,4 @@
-library(tidyverse) #데이터 분석을 위한 패키지
+﻿library(tidyverse) #데이터 분석을 위한 패키지
 library(corrplot) #상관행렬그래프를 위한 패키지
 library(ggthemes) #그래프 설정을 위한 패키지
 library(viridis) #그래프에 어여쁜 색칠을 위한 패키지
@@ -98,6 +98,16 @@ glimpse(movie)
 ggplot(filter(movie, !is.na(NAVER_EX_PT)),aes(x=NAVER_EX_PT, y=AUDI_ACC, color=NAVER_EX_PT)) + geom_point() + scale_color_viridis(begin = 1, end = 0, option = 'D') + geom_smooth(method = 'lm', color = 'red3', fill = 'red3') + scale_y_continuous(breaks = c(0, 5000000, 10000000, 15000000), labels = c('0명', '오백만명', '천만명', '천오백만명')) + theme_classic() + labs(title='개봉전 네이버 기대지수에 따른 관객수', x='기대지수', y='관객수') + theme(plot.title=element_text(hjust=0.5, face='bold'), legend.position = 'none')
 ggplot(filter(movie, !is.na(NAVER_EX_PT)),aes(x=log1p(NAVER_EX_PT), y=AUDI_ACC, color=log1p(NAVER_EX_PT))) + geom_point() + scale_color_viridis(begin = 1, end = 0, option = 'D') + geom_smooth(method = 'lm', color = 'red3', fill = 'red3') + scale_y_continuous(breaks = c(0, 5000000, 10000000, 15000000), labels = c('0명', '오백만명', '천만명', '천오백만명')) + theme_classic() + labs(title='개봉전 네이버 기대지수(로그)에 따른 관객수', x='log(1+기대지수)', y='관객수') + theme(plot.title=element_text(hjust=0.5, face='bold'), legend.position = 'none')
 cor(movie$NAVER_EX_PT, movie$AUDI_ACC, use='complete.obs')
+
+
+
+
+
+glimpse(movie)
+corrplot.mixed(
+  corr = cor(movie[c('AUDI_ACC','SHOW_TM', 'BUDGET', 'NAVER_CMT_NN', 'NAVER_PRE_EVAL', 'NAVER_PRE_EVAL_MUL','NAVER_EX_PT')], use = 'complete.obs'), 
+  tl.col = "red",  
+  upper = "ellipse", tl.pos = "lt", mar=c(0,0,0,0)) 
 
 
 
