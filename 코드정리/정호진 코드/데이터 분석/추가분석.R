@@ -1,4 +1,4 @@
-movie <- read.csv('train_regression(2차).csv', na.strings = c(''))
+﻿movie <- read.csv('train_regression(2차).csv', na.strings = c(''))
 
 glimpse(movie)
 top10_company <- movie %>% group_by(COMPANY_NM) %>% summarise(cnt = n(), audi_median=median(AUDI_ACC)) %>% arrange(desc(cnt)) %>% filter(!is.na(COMPANY_NM)&!(COMPANY_NM=='기타')) %>% head(10)
@@ -21,7 +21,7 @@ ggplot(nation, aes(x=reorder(NATION_NM,audi_median),y=audi_median,fill=NATION_NM
 
 
 
-movie <- read.csv('movie_regression.csv', na.strings = c(''))
+movie <- read.csv('movie_analysis.csv', na.strings = c(''))
 glimpse(movie)
 
 
