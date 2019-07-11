@@ -41,9 +41,12 @@ set.seed(222)
 model <- randomForest(AUDI_ACC ~ .,data = real_train, ntree = 501, replace = TRUE, nodesize = 9,importance = TRUE)
 model
 
-glimpse(real_train)
+
 #변수 중요도 확인 
-importance(model)
+imp <- importance(model)
+fraimp <- as.data.frame(imp)
+fraimp$var <- row.names(fraimp)
+ggplot(fraimp,aes(x=var)) + geom_line(aes(y=`%IncMSE`*10,group=1, col='%IncMSE'), size=2) + geom_line(aes(y=IncNodePurity,group=1, col='IncNodePurity'), size=2) + scale_y_continuous(sec.axis = sec_axis(~./10, name = "%IncMSE")) + theme_classic() + guides(color=guide_legend(title="변수 중요도")) + theme(legend.title.align = 0.5, plot.title=element_text(hjust=0.5, face='bold')) + scale_x_discrete(breaks=c('COMPANY_NM','NATION_NM','NAVER_CMT_NN','NAVER_EX_PT','OPEN_MONTH','OPEN_QUARTER','ORI_BOOK','PRI_GENRE_NM','SERIES','SHOW_TM','WATCH_GRADE_NM'), labels=c('배급사','제작국가','댓글개수','기대지수','개봉월','개봉분기','원작도서','장르','시리즈','상영시간','관람등급')) + labs(title='2차회귀결과 변수중요도', x='변수명', y='IncNodePurity')
 
 
 #예측영화 로딩
