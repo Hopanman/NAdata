@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1562898245312.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2966307290",
+    "id" : "4534BD8D",
+    "lastKnownWriteTime" : 1562638872,
+    "last_content_update" : 1562638872,
+    "path" : "C:/Users/TJ/Desktop/NAdata/데이터분석/정호진 데이터 분석/movie_analysis/영화 데이터 분석.R",
+    "project_path" : "영화 데이터 분석.R",
+    "properties" : {
+        "cursorPosition" : "220,0",
+        "scrollLine" : "218"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

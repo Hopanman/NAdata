@@ -1,0 +1,4 @@
+movie <- read.csv('movie_regression.csv',na.strings = c(''))
+names(movie)
+movie <- movie[-c(4,5,6,7,8,9,12,14,15,16,19,28)]
+aggr(movie, sortVars=T,prop=F, cex.axis=0.45, numbers=T)
